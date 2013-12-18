@@ -1,0 +1,30 @@
+src
+├── admin
+│   ├── config
+│   ├── info
+│   ├── metters
+│   ├── news
+│   ├── tickets
+│   └── users
+├── commonModules
+│   ├── about
+│   ├── account
+│   ├── contact
+│   ├── profile
+│   ├── terms
+│   └── tutorial
+├── ngCommon
+│   ├── directives
+│   ├── modules
+│   └── services
+│       ├── errorHandling
+│       ├── notifications
+│       ├── resources
+│       └── validations
+└── tenant
+    ├── metters
+    ├── news
+    ├── residences
+    └── tickets
+
+27 directories, 0 files
