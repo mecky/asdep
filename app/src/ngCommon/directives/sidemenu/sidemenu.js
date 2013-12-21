@@ -8,8 +8,11 @@ asdep.directive("sidemenu", function($location) {
                 admin: "src/ngCommon/directives/sidemenu/admin.html"
             }
 
+            /**
+             * Current page starts with ... (not matching exacly because of tabs)
+             */
             scope.atPage = function(page) {
-                return $location.path() == page;
+                return $location.path().substring(0, page.length) == page;
             }
         }
     }

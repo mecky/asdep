@@ -1,1 +1,6 @@
-<h2>Meters home page</h2>
+<ul id="metersTab" class="nav nav-tabs">
+    <li><a data-target="insert" href="#/tenant/meters/insert">Introducere</a></li>
+    <li><a data-target="history" href="#/tenant/meters/history">Istoric</a></li>
+</ul>
+
+<div ng-include="template[tab]"></div>
