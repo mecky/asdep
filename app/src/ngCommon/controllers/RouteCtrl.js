@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * All the content from index.html is wrapped in a div controlled by RouteCtrl.
  * When a route changes, the "context" variable is assigned the first string between "/" (ex: admin, tenant, etc)
@@ -12,4 +14,4 @@ asdep.controller("RouteCtrl", function($scope, $location) {
             $scope.context = 'none';
         }
     })
-})
+});
