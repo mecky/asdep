@@ -1,4 +1,3 @@
 
-asdep.controller("tenantMetersCtrl", function($scope, $rootScope) {
-    $rootScope.role = "tenant"
+asdep.controller("tenantMetersCtrl", function() {
 })

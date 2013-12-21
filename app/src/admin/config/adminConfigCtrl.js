@@ -1,4 +1,3 @@
 
-asdep.controller("adminConfigCtrl", function($rootScope) {
-    $rootScope.role="admin";
+asdep.controller("adminConfigCtrl", function() {
 })
