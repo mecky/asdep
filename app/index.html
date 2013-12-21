@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
 </head>
-  <body ng-app="asdepApp">
+  <body ng-app="asdep">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -26,20 +26,50 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
+
+
+
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#/">Asdep</a>
+            <ul class="nav navbar-nav">
+                <li><a href="#/tenant">Locatar</a></li>
+                <li><a href="#/admin">Administrator</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div sidemenu ng-class="{'col-sm-2': role != 'none', 'hidden': role == 'none'}" style="background: #ccc"></div>
+
+        <div ng-class="{'col-sm-10': role != 'none', 'col-sm-12': role == 'none'}" ng-view style="background: #dea"></div>
+
+    </div>
+
+
+
+
 
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
 
-        <!-- build:js scripts/plugins.js -->
-        <!-- endbuild -->
+    <!-- build:js scripts/plugins.js -->
+    <!--<script src="bower_components/bootstrap-sass/js/bootstrap"></script>-->
+    <!-- endbuild -->
 
         <!-- build:js scripts/modules.js -->
         <script src="bower_components/angular-resource/angular-resource.js"></script>
         <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="src/ngCommon/modules/asdep.js"></script>
+    <script src="src/ngCommon/directives/sidemenu/sidemenu.js"></script>
+    <script src="src/tenant/news/tenantNewsCtrl.js"></script>
+    <script src="src/tenant/meters/tenantMetersCtrl.js"></script>
+    <script src="src/admin/info/adminInfoCtrl.js"></script>
+    <script src="src/admin/config/adminConfigCtrl.js"></script>
+    <!-- endbuild -->
 </body>
 </html>
