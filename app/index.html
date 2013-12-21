@@ -30,10 +30,12 @@
     <div data-ng-controller="RouteCtrl">
         <div navbar></div>
         <div class="container">
-            <div sidemenu ng-class="{'col-sm-2': context != 'none', 'hidden': context == 'none'}" style="background: #ccc"></div>
+            <div sidemenu ng-class="{'col-sm-2': context != 'none', 'hidden': context == 'none'}" class="well"></div>
             <div ng-class="{'col-sm-10': context != 'none', 'col-sm-12': context == 'none'}" ng-view style="background: #dea"></div>
         </div>
-        <!--<div footer></div>-->
+        <div class="container">
+            <div footer></div>
+        </div>
     </div>
 
 
@@ -55,6 +57,7 @@
     <script src="src/ngCommon/controllers/RouteCtrl.js"></script>
     <script src="src/ngCommon/directives/sidemenu/sidemenu.js"></script>
     <script src="src/ngCommon/directives/navbar/navbar.js"></script>
+    <script src="src/ngCommon/directives/footer/footer.js"></script>
     <script src="src/tenant/news/tenantNewsCtrl.js"></script>
     <script src="src/tenant/meters/tenantMetersCtrl.js"></script>
     <script src="src/admin/info/adminInfoCtrl.js"></script>

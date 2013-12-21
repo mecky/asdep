@@ -1,5 +1,7 @@
-/* Space out content a bit */
 body {
-  padding-top: 60px;
-  padding-bottom: 20px;
+    padding-top: 60px;
+}
+
+.footer {
+    margin-top: 20px;
 }
