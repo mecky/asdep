@@ -1,5 +1,5 @@
 
-asdep.directive("loginModal", function(Auth) {
+asdep.directive("loginModal", function(Auth, $rootScope, $cookies) {
     return {
         templateUrl: "src/commonModules/account/login/loginModal.html",
         link: function(scope) {
@@ -9,7 +9,11 @@ asdep.directive("loginModal", function(Auth) {
             scope.login = function() {
                 Auth.login(scope.user)
                     .success(function(data) {
-                        console.log(data)
+                        console.log(data);
+
+                        $cookies.sessionId = data.sessionId;
+                        $rootScope.accountInfo = data.account;
+                        $rootScope.authorized = true;
                         $("#loginModal").modal("hide");
                     })
                     .error(function() {
