@@ -3,7 +3,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title></title>
@@ -12,64 +12,68 @@
 
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/toastr/toastr.css"/>
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 </head>
-  <body ng-app="asdep">
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+<body ng-app="asdep">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
 
-    <!--[if lt IE 9]>
-      <script src="bower_components/es5-shim/es5-shim.js"></script>
-      <script src="bower_components/json3/lib/json3.min.js"></script>
-    <![endif]-->
+<!--[if lt IE 9]>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+<![endif]-->
 
 
 
-    <div data-ng-controller="RouteCtrl">
-        <div navbar></div>
-        <div class="container">
-            <div sidemenu ng-class="{'col-sm-2': context != 'none', 'hidden': context == 'none'}" class="well"></div>
-            <div ng-class="{'col-sm-10': context != 'none', 'col-sm-12': context == 'none'}" ng-view></div>
-        </div>
-        <div class="container">
-            <div footer></div>
-        </div>
-
-        <div login-modal></div>
+<div data-ng-controller="RouteCtrl">
+    <div navbar></div>
+    <div class="container">
+        <div sidemenu ng-class="{'col-sm-2': context != 'none', 'hidden': context == 'none'}" class="well"></div>
+        <div ng-class="{'col-sm-10': context != 'none', 'col-sm-12': context == 'none'}" ng-view></div>
+    </div>
+    <div class="container">
+        <div footer></div>
     </div>
 
+    <div login-modal></div>
+</div>
 
 
 
-    <script src="bower_components/jquery/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
 
-    <!-- build:js scripts/plugins.js -->
-    <script src="bower_components/bootstrap-sass/js/bootstrap-tab.js"></script>
-    <script src="bower_components/bootstrap-sass/js/bootstrap-collapse.js"></script>
-    <script src="bower_components/bootstrap-sass/js/bootstrap-modal.js"></script>
-    <script src="bower_components/bootstrap-sass/js/bootstrap-dropdown.js"></script>
-    <!-- endbuild -->
+<script src="bower_components/jquery/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
 
-    <!-- build:js scripts/modules.js -->
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <!-- endbuild -->
+<!-- build:js scripts/plugins.js -->
+<script src="bower_components/bootstrap-sass/js/bootstrap-tab.js"></script>
+<script src="bower_components/bootstrap-sass/js/bootstrap-collapse.js"></script>
+<script src="bower_components/bootstrap-sass/js/bootstrap-modal.js"></script>
+<script src="bower_components/bootstrap-sass/js/bootstrap-dropdown.js"></script>
+<!-- endbuild -->
 
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="src/ngCommon/modules/asdep.js"></script>
-    <script src="src/ngCommon/controllers/RouteCtrl.js"></script>
-    <script src="src/ngCommon/directives/sidemenu/sidemenu.js"></script>
-    <script src="src/ngCommon/directives/navbar/navbar.js"></script>
-    <script src="src/ngCommon/directives/footer/footer.js"></script>
-    <script src="src/ngCommon/services/resources/Auth.js"></script>
-    <script src="src/commonModules/account/login/loginModal.js"></script>
-    <script src="src/tenant/news/tenantNewsCtrl.js"></script>
-    <script src="src/tenant/meters/tenantMetersCtrl.js"></script>
-    <script src="src/admin/info/adminInfoCtrl.js"></script>
-    <script src="src/admin/config/adminConfigCtrl.js"></script>
-    <!-- endbuild -->
+<!-- build:js scripts/modules.js -->
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<!-- endbuild -->
+
+<script src="bower_components/toastr/toastr.js"></script>
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="src/ngCommon/modules/asdep.js"></script>
+<script src="src/ngCommon/controllers/RouteCtrl.js"></script>
+<script src="src/ngCommon/directives/sidemenu/sidemenu.js"></script>
+<script src="src/ngCommon/directives/navbar/navbar.js"></script>
+<script src="src/ngCommon/directives/footer/footer.js"></script>
+<script src="src/ngCommon/services/resources/Auth.js"></script>
+<script src="src/ngCommon/services/notifications/Notification.js"></script>
+<script src="src/commonModules/account/login/loginModal.js"></script>
+<script src="src/tenant/news/tenantNewsCtrl.js"></script>
+<script src="src/tenant/meters/tenantMetersCtrl.js"></script>
+<script src="src/admin/info/adminInfoCtrl.js"></script>
+<script src="src/admin/config/adminConfigCtrl.js"></script>
+<!-- endbuild -->
 </body>
 </html>

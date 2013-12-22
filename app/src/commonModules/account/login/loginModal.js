@@ -1,5 +1,5 @@
 
-asdep.directive("loginModal", function(Auth, $rootScope, $cookies) {
+asdep.directive("loginModal", function(Auth, $rootScope, $cookies, Notification) {
     return {
         templateUrl: "src/commonModules/account/login/loginModal.html",
         link: function(scope) {
@@ -15,6 +15,7 @@ asdep.directive("loginModal", function(Auth, $rootScope, $cookies) {
                         $rootScope.accountInfo = data.account;
                         $rootScope.authorized = true;
                         $("#loginModal").modal("hide");
+                        Notification.success("Bine ai venit, " + $rootScope.accountInfo.name + "!")
                     })
                     .error(function() {
                         console.log("Not able to login!");

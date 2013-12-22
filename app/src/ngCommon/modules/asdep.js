@@ -12,4 +12,9 @@ asdep.config(function($routeProvider) {
         .when("/admin",             {redirectTo: "/admin/info"})
         .when("/admin/info",        {templateUrl:"/src/admin/info/info.html",      controller: "adminInfoCtrl"})
         .when("/admin/config",      {templateUrl:"/src/admin/config/config.html",  controller: "adminConfigCtrl"})
+
+    toastr.options.closeButton = true;
+    toastr.options.timeOut = 1500;
+    toastr.options.fadeOut = 100;
+    toastr.options.fadeIn = 100;
 });
