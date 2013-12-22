@@ -2,114 +2,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background: #e6e6e6">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <br/>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><br/>
             </div>
             <div class="modal-body">
                 <ul class="nav nav-tabs nav-justified">
                     <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
                     <li><a href="#newAccount" data-toggle="tab">Creare Cont</a></li>
                 </ul>
-
-                <!-- Tab panes -->
                 <div class="tab-content">
-                    <div class="tab-pane active" id="login">
-                        <form class="form-horizontal" role="form" style="margin-top: 20px">
-                            <div class="form-group">
-                                <label for="username" class="col-sm-2 control-label">User</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="username" placeholder="User" autofocus>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="col-sm-2 control-label">Parola</label>
-                                <div class="col-sm-8">
-                                    <input type="password" class="form-control" id="password" placeholder="Parola">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Pastreaza-ma logat
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-primary" ng-click="login()">Login</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="tab-pane" id="newAccount">
-                        <form class="form-horizontal" role="form" style="margin-top: 20px">
-                            <div class="form-group">
-                                <label for="firstName" class="col-sm-3 control-label">Nume</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="firstName" placeholder="Nume">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName" class="col-sm-3 control-label">Prenume</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="lastName" placeholder="Prenume">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone" class="col-sm-3 control-label">Telefon</label>
-                                <div class="col-sm-8">
-                                    <input type="tel" class="form-control" id="phone" placeholder="Telefon">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="userName" class="col-sm-3 control-label">Nume Utilizator</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="userName" placeholder="Nume Utilizator">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="email" class="col-sm-3 control-label">Email</label>
-                                <div class="col-sm-8">
-                                    <input type="email" class="form-control" id="email" placeholder="Email">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="password1" class="col-sm-3 control-label">Parola</label>
-                                <div class="col-sm-8">
-                                    <input type="password" class="form-control" id="password1" placeholder="Parola">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="password2" class="col-sm-3 control-label">Confirma Parola</label>
-                                <div class="col-sm-8">
-                                    <input type="password" class="form-control" id="password2" placeholder="Parola">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-3 col-sm-10">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Sunt de acord cu termenii si conditiile.
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-3 col-sm-10">
-                                    <button type="submit" class="btn btn-primary" ng-click="createAccount()">Creaza Cont</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    </div>
+                    <div class="tab-pane active" id="login" ng-include="'src/commonModules/account/login/loginForm.html'"></div>
+                    <div class="tab-pane" id="newAccount" ng-include="'src/commonModules/account/login/newAccountForm.html'"></div>
                 </div>
             </div>
-            <!--<div class="modal-footer">-->
-                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-            <!--</div>-->
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+    </div>
+</div>
