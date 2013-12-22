@@ -1,5 +1,5 @@
 
-asdep.directive("loginModal", function() {
+asdep.directive("loginModal", function(Auth) {
     return {
         templateUrl: "src/commonModules/account/login/loginModal.html",
         link: function(scope) {
@@ -7,13 +7,26 @@ asdep.directive("loginModal", function() {
             scope.account = {};
 
             scope.login = function() {
-                console.log(scope.user);
-                $("#loginModal").modal("hide");
+                Auth.login(scope.user)
+                    .success(function(data) {
+                        console.log(data)
+                        $("#loginModal").modal("hide");
+                    })
+                    .error(function() {
+                        console.log("Not able to login!");
+                    });
             }
+
             scope.createAccount = function() {
-                console.log(scope.account);
-                $("#loginModal").modal("hide");
+                Auth.createUser(scope.account)
+                    .success(function(data) {
+                        console.log(data)
+                        $("#loginModal").modal("hide");
+                    })
+                    .error(function() {
+                        console.log("Not able to login!");
+                    })
             }
         }
     }
-})
+});
