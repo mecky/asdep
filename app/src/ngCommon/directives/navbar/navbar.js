@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2014 creatdenoi.ro, All Rights Reserved
+ */
 asdep.directive("navbar", function(Auth, $cookieStore, $rootScope, Notification) {
     return {
         templateUrl: "src/ngCommon/directives/navbar/navbar.html",

@@ -1,4 +1,6 @@
-
+/**
+ * Copyright (C) 2014 creatdenoi.ro, All Rights Reserved
+ */
 asdep.directive("loginModal", function(Auth, $rootScope, $cookies, Notification) {
     return {
         templateUrl: "src/commonModules/account/login/loginModal.html",

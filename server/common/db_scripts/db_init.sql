@@ -1,13 +1,13 @@
--- For creating the database you have to syncronize the model from the drive and populate the tables
--- the population can be made with the script bellow or manualy depending on the mood and desire!
--- NOTE: for each association added there need to be created a schema syncronized with association generic
+-- For creating the database you have to sync the model from the drive and populate the tables
+-- the population can be made with the script bellow or manually depending on the mood and desire!
+-- NOTE: for each association added there need to be created a schema synced with association generic
 -- the name of the schema need to have following format - association`id` ex: association1
 -- drop schema if exists `association1`;
 -- drop schema if exists `association2`;
 -- CREATE SCHEMA `association1` ;
 -- CREATE SCHEMA `association2` ;
--- NOTE: remember to syncronize the two schemas with the err before going further
--- this is done from diagram view in workbench -> database -> syncronize model -> next next.. -> overwrite the associationgeneric with the association you want to sync
+-- NOTE: remember to sync the two schemas with the err before going further
+-- this is done from diagram view in workbench -> database -> sync model -> next next.. -> overwrite the associationgeneric with the association you want to sync
 
 -- Populate general schema
 

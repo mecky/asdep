@@ -1,4 +1,6 @@
-
+/**
+ * Copyright (C) 2014 creatdenoi.ro, All Rights Reserved
+ */
 asdep.directive("sidemenu", function($location) {
     return {
         templateUrl: "src/ngCommon/directives/sidemenu/sidemenu.html",

@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2014 creatdenoi.ro, All Rights Reserved
+ */
 'use strict';
 
 var asdep = angular.module("asdep", ["ngCookies"]);
