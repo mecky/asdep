@@ -3,7 +3,7 @@
  */
 'use strict';
 
-var asdep = angular.module("asdep", ["ngCookies"]);
+var asdep = angular.module("asdep", ["ngCookies", "ngResource"]);
 
 asdep.config(function($routeProvider) {
     $routeProvider

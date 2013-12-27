@@ -14,7 +14,7 @@ app.post(serverRoot + '/auth/login', auth.login);
 app.post(serverRoot + '/auth/logout', auth.logout);
 app.put(serverRoot + '/auth/user', auth.createUser);
 app.post(serverRoot + '/auth/user/:id', auth.updateUser);
-
+app.get(serverRoot + "/auth/:sessionId", auth.getSessionInfo)
 ////News
 //// get will take into account the user rights and will return the list
 //// of news from all the associations he belongs to

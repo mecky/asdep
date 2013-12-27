@@ -12,7 +12,7 @@ exports.login = function(req, res) {
     // validate the body
     if (user && pass) {
         console.log(req.body);
-        res.send({sessionId: "1234", account: {name: user, roles: "admin"}});
+        res.send({sessionId: "1234", account: {name: "Petru", roles: "admin"}});
     } else {
         res.send(400, "Invalid username or password");
     }
@@ -36,6 +36,11 @@ exports.createUser = function(req, res) {
         res.send(400, "Invalid username or password");
     }
 }
+
 exports.updateUser = function(req, res) {
     res.send("ok");
+}
+
+exports.getSessionInfo = function(req, res) {
+    res.send({sessionId: "1234", account: {name: "Petru", roles: "admin"}});
 }
