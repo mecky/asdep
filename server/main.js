@@ -7,7 +7,8 @@ var express = require('express'),
 
 var serverRoot = "/api"
 
-app.use(express.bodyParser());
+app.use(express.json());
+app.use(express.urlencoded());
 
 // Auth
 app.post(serverRoot + '/auth/login', auth.login);
@@ -43,10 +44,15 @@ app.get(serverRoot + "/auth/:sessionId", auth.getSessionInfo)
 //app.delete(serverRoot + "/association/:id/ticket/:ticketId", tickets.deleteTicket);
 //app.post(serverRoot + "/association/:id/ticket/:ticketId", tickets.modifyTicket);
 
+app.use(function(req, res, bla){
+    console.log("!!midlewhare function");
+    console.log('%s %s', req.method, req.url);
+    console.log(bla);
 
-app.use(function (req, res) {
-    res.json({'ok': false, 'status': '404'});
+    res.send("blabla");
+    //next();
 });
+
 
 
 module.exports = app;
