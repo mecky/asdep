@@ -2,13 +2,20 @@
 'use strict';
 var express = require('express'),
     auth = require('./routes/auth'),
-    news = require('./routes/news'),
+//  news = require('./routes/news'),
     app = express();
 
-var serverRoot = "/api"
+var serverRoot = "/api";
 
 app.use(express.json());
 app.use(express.urlencoded());
+//TODO introduce auth manager middleware function
+/*
+app.use(function(req, res, next){
+    console.log("!!middleware function");
+    next();
+});
+*/
 
 // Auth
 app.post(serverRoot + '/auth/login', auth.login);
@@ -43,16 +50,6 @@ app.get(serverRoot + "/auth/:sessionId", auth.getSessionInfo)
 //app.put(serverRoot + "/association/:id/ticket", tickets.createTicket);
 //app.delete(serverRoot + "/association/:id/ticket/:ticketId", tickets.deleteTicket);
 //app.post(serverRoot + "/association/:id/ticket/:ticketId", tickets.modifyTicket);
-
-app.use(function(req, res, bla){
-    console.log("!!midlewhare function");
-    console.log('%s %s', req.method, req.url);
-    console.log(bla);
-
-    res.send("blabla");
-    //next();
-});
-
 
 
 module.exports = app;

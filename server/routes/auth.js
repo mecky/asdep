@@ -1,7 +1,8 @@
 /**
  * Copyright (C) 2014 creatdenoi.ro, All Rights Reserved
  */
-var Dao = require('../common/dao/dao.js');
+var db_auth = require('../common/dao/db_auth');
+var err = require('../common/error_handling/error_handler');
 /**
  * To document:
  * - url + query parameters
@@ -9,28 +10,22 @@ var Dao = require('../common/dao/dao.js');
  * - return format
  * - http headers
  */
-
-var databaseAcces = new Dao({database : 'general'});
-
 exports.login = function(req, res) {
     var user = req.body.name;
     var pass = req.body.pass;
 
-    // validate the body
+    //TODO data should be validated!
     if (user && pass) {
 
-        var query = 'select COUNT(*) as exist from `user` where `username`=\'' + user + '\' and `password`=\'' + pass + '\'';
-        databaseAcces.query(res, query, function(rows){
-            if (rows[0].exist !== 0 ){
-                console.log('logged');
+        db_auth.login(res, user, pass, function(result){
+            if (result){
                 res.send({sessionId: "1234", account: {name: user, roles: "admin"}});
-            }else {
-                console.log('login failed');
+            }else{
                 res.send(400, "Invalid username or password");
             }
         });
     }else{
-        res.send(400, "Invalid username or password");
+        err.invalidData('incorrect auth data received from client');
     }
 }
 

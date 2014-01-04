@@ -2,6 +2,7 @@
  * Copyright (C) 2014 creatdenoi.ro, All Rights Reserved
  */
 var mysql = require('mysql');
+var errHandler = require('../error_handling/error_handler');
 var pool  = mysql.createPool({
     host     : '127.0.0.1',
     port     : '3306',
@@ -11,39 +12,28 @@ var pool  = mysql.createPool({
 });
 
 
-
-function Dao(options) {
-    this.database = options.database;
-}
-
-
-
-Dao.prototype.query = function(res, query, callback){
-    var database = this.database;
+exports.query = function(res, params){
     pool.getConnection(function(err, connection) {
         if (err){
-            console.log(err);
-            res.send(501, "failed to connect to database");
+            errHandler.databaseError(res, 'failed to connect to database: ' + err);
             return;
         }
 
-        console.log('doing query on: ' + database);
-        connection.changeUser({'database' : database}, function(err) {
+        connection.changeUser(params.database, function(err) {
             if (err){
-                res.send(501, "failed to change database");
+                errHandler.databaseError(res, 'changing database failed: ' + err);
                 return;
             }
-            connection.query( query, function(err, rows) {
+            connection.query( params.query[0], params.query[1], function(err, rows) {
                 if (err){
-                    res.send(501, "query failed");
+                    errHandler.databaseError(res, 'running query failed: ' + err);
                     return;
                 }
                 connection.release();
-                callback(rows);
+                params.done(rows);
             });
 
         });
 
     });
 };
-module.exports = Dao;
