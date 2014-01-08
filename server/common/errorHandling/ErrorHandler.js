@@ -2,7 +2,7 @@
  * Copyright (C) 2014 creatdenoi.ro, All Rights Reserved
  */
 
-var log = require('./loger');
+var log = require('./Loger');
 
 /**
  * Error codes - server errors:

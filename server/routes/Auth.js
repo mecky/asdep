@@ -1,8 +1,8 @@
 /**
  * Copyright (C) 2014 creatdenoi.ro, All Rights Reserved
  */
-var db_auth = require('../common/dao/db_auth');
-var err = require('../common/error_handling/error_handler');
+var db_auth = require('../common/dao/DbAuth');
+var err = require('../common/errorHandling/ErrorHandler');
 /**
  * To document:
  * - url + query parameters
@@ -17,7 +17,7 @@ exports.login = function(req, res) {
     //TODO data should be validated!
     if (user && pass) {
 
-        db_auth.login(res, user, pass, function(result){
+        DbAuth.login(res, user, pass, function(result){
             if (result){
                 res.send({sessionId: "1234", account: {name: user, roles: "admin"}});
             }else{

@@ -277,7 +277,7 @@ module.exports = function (grunt) {
         options: {
           hostname: 'localhost',
           port: 9002,
-          server: require('path').resolve('./server/main')
+          server: require('path').resolve('./server/Main')
         }
       }
     }

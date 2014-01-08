@@ -1,8 +1,9 @@
 /*jslint node: true */
 'use strict';
 var express = require('express'),
-    auth = require('./routes/auth'),
-//  news = require('./routes/news'),
+    Auth = require('./routes/Auth'),
+    //  news = require('./routes/News'),
+//    validator = require('./common/dataValidation/Validator');
     app = express();
 
 var serverRoot = "/api";
@@ -18,11 +19,14 @@ app.use(function(req, res, next){
 */
 
 // Auth
-app.post(serverRoot + '/auth/login', auth.login);
-app.post(serverRoot + '/auth/logout', auth.logout);
-app.put(serverRoot + '/auth/user', auth.createUser);
-app.post(serverRoot + '/auth/user/:id', auth.updateUser);
-app.get(serverRoot + "/auth/:sessionId", auth.getSessionInfo)
+//public
+app.post(serverRoot + '/auth/login', Auth.login);
+app.post(serverRoot + '/auth/logout', Auth.logout);
+
+
+app.put(serverRoot + '/auth/user', Auth.createUser);
+app.post(serverRoot + '/auth/user/:id', Auth.updateUser);
+app.get(serverRoot + "/auth/:sessionId", Auth.getSessionInfo)
 ////News
 //// get will take into account the user rights and will return the list
 //// of news from all the associations he belongs to
