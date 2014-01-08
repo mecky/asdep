@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2014 creatdenoi.ro, All Rights Reserved
  */
-var db_auth = require('../common/dao/DbAuth');
+var DbAuth = require('../common/dao/DbAuth');
 var err = require('../common/errorHandling/ErrorHandler');
 /**
  * To document:
