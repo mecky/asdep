@@ -55,8 +55,8 @@ createAssociation(){
             ADDRESS=$7
         else
             echo "NOTE: Please make sure that \`general\` database was previousely created!";
-            echo -n "(unsigned int)idassociation = ";
-            read -r ID_ASSOCIATION;
+            ID_ASSOCIATION=`runQuery "select MAX(idassociation) from general.association" | tr -dc '[0-9]'`;
+            ID_ASSOCIATION=`expr $ID_ASSOCIATION + 1`;
             echo -n "(char[45]) name = ";
             read -r NAME;
             echo -n "(char[13]) cui = ";
