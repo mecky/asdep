@@ -1,5 +1,5 @@
 
-asdep.controller("tenantMetersCtrl", function($scope, $routeParams) {
+asdep.controller("TenantMetersCtrl", function($scope, $routeParams) {
     $scope.tab = $routeParams.tab;
     $scope.template = {
         insert: "src/tenant/meters/insertReading.html",

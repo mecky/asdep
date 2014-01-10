@@ -1,3 +1,0 @@
-
-asdep.controller("newsCtrl", function() {
-})

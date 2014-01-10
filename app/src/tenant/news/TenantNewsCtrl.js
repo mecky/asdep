@@ -1,0 +1,3 @@
+
+asdep.controller("TenantNewsCtrl", function() {
+})
