@@ -35,8 +35,8 @@ exports.check = function(param){
     var msg;
     for (var i in param.validationData){
         msg = DataValidator[i](param.validationData[i]);
-        if (msg != ''){
-            ErrHandler.invalidData(param.res, msg);
+        if (msg != '') {
+            param.error(msg);
             return;
         }
     }

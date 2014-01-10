@@ -21,7 +21,7 @@ var log = require('./Loger');
  */
 exports.invalidData = function(res, msg){
     var err = 400;
-    log.logWarning(err, msg);
+    log.logError(err, msg);
     res.send(err, msg)
 };
 

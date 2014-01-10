@@ -3,7 +3,8 @@
  */
 var DbAuth = require('../common/dao/DbAuth');
 var DataValidator = require('../common/errorHandling/DataValidator');
-
+var ErrHandler = require('../common/errorHandling/ErrorHandler');
+var log = require('../common/errorHandling/Loger');
 /**
  * To document:
  * - url + query parameters
@@ -13,11 +14,12 @@ var DataValidator = require('../common/errorHandling/DataValidator');
  */
 exports.login = function(req, res) {
     var user, pass;
-    user = req.body.user;
+    user = req.body.name;
     pass = req.body.pass;
-    console.log(user);
+
+    log.logInfo(user + " requested authentication.");
+
     DataValidator.check({
-        res : res,
         validationData : {user : user, pass : pass},
         success : function(){
             DbAuth.login({
@@ -34,7 +36,9 @@ exports.login = function(req, res) {
                     }
                 }
             });
-
+        },
+        error: function(msg) {
+            ErrHandler.invalidData(res, msg);
         }
     })
 };

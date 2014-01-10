@@ -16,14 +16,14 @@ exports.logError = function(err, msg){
     console.log("ERROR: "  + err + ' - ' + msg);
 };
 
-exports.logWarning = function(err){
-    if (logLevel >= 2){
+exports.logWarning = function(err, msg){
+    if (logLevel <= 2){
         console.log("WARNING: "  + err + ' - ' + msg);
     }
 };
 
-exports.logInfo = function(err){
-    if (logLevel >= 1){
-        console.log("INFO: "  + err + ' - ' + msg);
+exports.logInfo = function(msg){
+    if (logLevel <= 1){
+        console.log("INFO: "  + msg);
     }
 };
