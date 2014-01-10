@@ -20,17 +20,17 @@ var log = require('./Loger');
  * data contains errors that should have been caught on client side
  */
 exports.invalidData = function(res, msg){
-    var err = 592;
+    var err = 400;
     log.logWarning(err, msg);
     res.send(err, msg)
 };
 
 exports.unauthorizedRequest = function(res, msg){
-
+    res.send(400, msg);
 };
 
 exports.databaseError = function(res, msg){
-    var err = 580;
+    var err = 400;
     log.logWarning(err, msg);
     res.send(err, msg)
 };

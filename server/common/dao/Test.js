@@ -1,10 +1,18 @@
 /**
  * Copyright (C) 2014 creatdenoi.ro, All Rights Reserved
  */
-var f = function(a,b,c){
-    for(var i = 0; i < argunemts.length; i++){
-        alert(args[i]);
+
+
+var caca  = {
+    pisu : function(){
+        alert(a);
     }
+}
+
+var f = function(a,b,c){
+    var m;
+    m = caca.pisu;
+    m();
 }
 
 f(1,2,3);

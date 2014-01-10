@@ -11,26 +11,34 @@ var pool  = mysql.createPool({
     queueLimit : 10
 });
 
-
-exports.query = function(res, params){
+/**
+ * @param object
+ * {
+ * res : @expressResVariable,
+ * query : [@"query", [@param1, @param2, ...]],
+ * done : @callback = function(array)
+ * }
+ *
+ */
+exports.query = function(param){
     pool.getConnection(function(err, connection) {
         if (err){
-            ErrHandler.databaseError(res, 'failed to connect to database: ' + err);
+            ErrHandler.databaseError(param.res, 'failed to connect to database: ' + err);
             return;
         }
 
-        connection.changeUser(params.database, function(err) {
+        connection.changeUser(param.database, function(err) {
             if (err){
-                ErrHandler.databaseError(res, 'changing database failed: ' + err);
+                ErrHandler.databaseError(param.res, 'changing database failed: ' + err);
                 return;
             }
-            connection.query( params.query[0], params.query[1], function(err, rows) {
+            connection.query( param.query[0], param.query[1], function(err, rows) {
                 if (err){
-                    ErrHandler.databaseError(res, 'running query failed: ' + err);
+                    ErrHandler.databaseError(param.res, 'running query failed: ' + err);
                     return;
                 }
                 connection.release();
-                params.done(rows);
+                param.done(rows);
             });
 
         });

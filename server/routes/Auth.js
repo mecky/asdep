@@ -2,7 +2,8 @@
  * Copyright (C) 2014 creatdenoi.ro, All Rights Reserved
  */
 var DbAuth = require('../common/dao/DbAuth');
-var err = require('../common/errorHandling/ErrorHandler');
+var DataValidator = require('../common/errorHandling/DataValidator');
+
 /**
  * To document:
  * - url + query parameters
@@ -11,27 +12,36 @@ var err = require('../common/errorHandling/ErrorHandler');
  * - http headers
  */
 exports.login = function(req, res) {
-    var user = req.body.name;
-    var pass = req.body.pass;
+    var user, pass;
+    user = req.body.user;
+    pass = req.body.pass;
+    console.log(user);
+    DataValidator.check({
+        res : res,
+        validationData : {user : user, pass : pass},
+        success : function(){
+            DbAuth.login({
+                res : res,
+                data : {
+                    user : user,
+                    pass : pass
+                },
+                done : function(result){
+                    if (result){
+                        res.send({sessionId: "1234", account: {name: user, roles: "admin"}});
+                    }else{
+                        res.send(400, "Invalid username or password");
+                    }
+                }
+            });
 
-    //TODO data should be validated!
-    if (user && pass) {
-
-        DbAuth.login(res, user, pass, function(result){
-            if (result){
-                res.send({sessionId: "1234", account: {name: user, roles: "admin"}});
-            }else{
-                res.send(400, "Invalid username or password");
-            }
-        });
-    }else{
-        err.invalidData('incorrect auth data received from client');
-    }
-}
+        }
+    })
+};
 
 exports.logout = function(req, res) {
     res.send("ok");
-}
+};
 
 exports.createUser = function(req, res) {
     // validate body
@@ -46,12 +56,12 @@ exports.createUser = function(req, res) {
     } else {
         res.send(400, "Invalid username or password");
     }
-}
+};
 
 exports.updateUser = function(req, res) {
     res.send("ok");
-}
+};
 
 exports.getSessionInfo = function(req, res) {
     res.send({sessionId: "1234", account: {name: "Petru", roles: "admin"}});
-}
+};
