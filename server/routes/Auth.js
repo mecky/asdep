@@ -18,7 +18,7 @@ exports.login = function(req, res) {
     pass = req.body.pass;
     err = new ErrHandler(res);
 
-    log.logInfo(email, + " requested authentication.");
+    log.logInfo(email + " requested authentication.");
 
     DataValidator.check({
         validationData : {email : email, pass : pass},
