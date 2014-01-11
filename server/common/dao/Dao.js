@@ -2,7 +2,6 @@
  * Copyright (C) 2014 creatdenoi.ro, All Rights Reserved
  */
 var mysql = require('mysql');
-var ErrHandler = require('../errorHandling/ErrorHandler');
 var pool  = mysql.createPool({
     host     : '127.0.0.1',
     port     : '3306',
@@ -14,27 +13,27 @@ var pool  = mysql.createPool({
 /**
  * @param object
  * {
- * res : @expressResVariable,
  * query : [@"query", [@param1, @param2, ...]],
  * done : @callback = function(array)
+ * err : @ErrorHandler object
  * }
  *
  */
 exports.query = function(param){
     pool.getConnection(function(err, connection) {
         if (err){
-            ErrHandler.databaseError(param.res, 'failed to connect to database: ' + err);
+            param.err.databaseError('failed to connect to database: ' + err);
             return;
         }
 
         connection.changeUser(param.database, function(err) {
             if (err){
-                ErrHandler.databaseError(param.res, 'changing database failed: ' + err);
+                param.err.databaseError('changing database failed: ' + err);
                 return;
             }
             connection.query( param.query[0], param.query[1], function(err, rows) {
                 if (err){
-                    ErrHandler.databaseError(param.res, 'running query failed: ' + err);
+                    param.err.databaseError('running query failed: ' + err);
                     return;
                 }
                 connection.release();

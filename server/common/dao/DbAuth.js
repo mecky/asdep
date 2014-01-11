@@ -6,25 +6,25 @@ var Dao = require('./Dao');
 /**
  * @param object
  * {
- * res : @expressResVariable,
  * data : {
  *      user : @username
  *      pass : @password
  * },
- * done : @callback = function(boolean)
+ * done : @callback = function(boolean, ["firstName"]),
+ * err : @ErrorHandler object
  * }
  */
 exports.login = function(param){
     Dao.query({
-        res : param.res,
         database : 'general',
-        query : ["select COUNT(*) as exist from `user` where `username`= ? and password = ?", [param.data.user , param.data.pass]],
+        query : ["select first_name as firstName from `user` where `email`= ? and password = ?", [param.data.email , param.data.pass]],
         done : function(rows){
-            if (rows[0].exist !== 0 ){
-                param.done(true);
+            if (rows[0]){
+                param.done(true, rows[0].firstName);
             }else {
                 param.done(false);
             }
-        }
+        },
+        err : param.err
     });
 };

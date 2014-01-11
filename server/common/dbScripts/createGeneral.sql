@@ -26,14 +26,14 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `general`.`user` (
   `iduser` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(30) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `first_name` VARCHAR(30) NOT NULL,
+  `last_name` VARCHAR(30) NOT NULL,
   `password` VARCHAR(40) NOT NULL,
   `created_date` VARCHAR(45) NOT NULL,
-  `name` VARCHAR(30) NULL,
-  `email` VARCHAR(45) NULL,
   `phone_number` VARCHAR(45) NULL,
   PRIMARY KEY (`iduser`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC))
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;
 
 
@@ -67,24 +67,24 @@ USE `general` ;
 
 DELIMITER $$
 USE `general`$$
-create procedure `add_role`(in idassociation integer unsigned, in iduser integer unsigned,
+create procedure `add_role`(in idassociation integer unsigned, in iduser integer unsigned, 
 						in role integer unsigned)
 begin
 declare `old_role` integer unsigned;
-if ((select count(`user_iduser`) from `user_has_association`
+if ((select count(`user_iduser`) from `user_has_association` 
 where `user_iduser` = iduser and `association_idassociation` = idassociation) = 0)
-then
-	insert into `user_has_association` (`association_idassociation`, `user_iduser`,`roles`)
+then 
+	insert into `user_has_association` (`association_idassociation`, `user_iduser`,`roles`) 
 	values (idassociation, iduser, role);
 else
-	select roles from `user_has_association`
+	select roles from `user_has_association` 
 	where `user_iduser` = iduser and `association_idassociation` = idassociation into `old_role`;
 	set `old_role` = (`old_role` | role);
-	update `user_has_association` set `roles`= `old_role` where
-	`association_idassociation` = idassociation
+	update `user_has_association` set `roles`= `old_role` where 
+	`association_idassociation` = idassociation 
 	and `user_iduser` = iduser;
 end if;
-end
+end 
 $$
 
 DELIMITER ;
@@ -95,21 +95,21 @@ DELIMITER ;
 
 DELIMITER $$
 USE `general`$$
-create procedure `remove_role`(in idassociation integer unsigned, in iduser integer unsigned,
+create procedure `remove_role`(in idassociation integer unsigned, in iduser integer unsigned, 
                            in role integer unsigned)
 begin
 declare `old_role` tinyint;
-select roles from `user_has_association`
+select roles from `user_has_association` 
 where `user_iduser` = iduser and `association_idassociation` = idassociation into `old_role`;
 -- verificam daca el are alt rol in asociatie si facem update, in cazul in care nu are alt rol stergem linku user_has_association
 if ((`old_role` & (~role)) != 0)
 then
     set `old_role` = `old_role` & (~role);
-    update `user_has_association` set `roles`= `old_role` where
-    `association_idassociation` = idassociation
+    update `user_has_association` set `roles`= `old_role` where 
+    `association_idassociation` = idassociation 
     and `user_iduser` = iduser;
-else
-    delete from `user_has_association`
+else 
+    delete from `user_has_association` 
     where `association_idassociation` = idassociation and `user_iduser` = iduser;
 end if;
 

@@ -4,6 +4,12 @@
 
 var log = require('./Loger');
 
+module.exports = ErrorHandler;
+
+function ErrorHandler(res){
+    this._res = res;
+};
+
 /**
  * Error codes - server errors:
  *  Security errors:
@@ -19,18 +25,20 @@ var log = require('./Loger');
 /**
  * data contains errors that should have been caught on client side
  */
-exports.invalidData = function(res, msg){
+ErrorHandler.prototype.invalidData = function(msg){
     var err = 400;
     log.logError(err, msg);
-    res.send(err, msg)
+    this._res.send(err, msg)
 };
 
-exports.unauthorizedRequest = function(res, msg){
-    res.send(400, msg);
-};
+/*
+currently not used, but will be for sure :)
+ErrorHandler.prototype.unauthorizedRequest = function(msg){
+    this._res.send(400, msg);
+};*/
 
-exports.databaseError = function(res, msg){
+ErrorHandler.prototype.databaseError = function(msg){
     var err = 400;
     log.logWarning(err, msg);
-    res.send(err, msg)
+    this._res.send(err, msg)
 };

@@ -2,9 +2,8 @@
  * Copyright (C) 2014 creatdenoi.ro, All Rights Reserved
  */
 
-var ErrHandler = require('../errorHandling/ErrorHandler');
-
 var validator = require('validator');
+var dns = require('dns');
 
 var DataValidator = {
     _lengthError : function(filed, min, max){
@@ -14,12 +13,9 @@ var DataValidator = {
         return 'campul ' + field + ' trebuie sa contina doar:' + data;
 
     },
-    user : function(user){
-        if (!validator.isLength(user, 4, 30)){
-            return DataValidator._lengthError('utilizator', 4, 30);
-        }
-        if (!validator.matches(user, /^[a-z0-9_.]+$/i)){
-            return this._illegalChars('utilizator', 'litere, cifre, caracterul _ sau .');
+    email : function(email){
+        if (!validator.isEmail(email, 4, 30)){
+            return 'adresa de email nu este valida'
         }
         return '';
     },
@@ -31,16 +27,43 @@ var DataValidator = {
     }
 }
 
+/**
+ * @param object
+ * {
+ * validationData : {@key : @value ...},
+ * success : @callback = function()
+ * err : @ErrorHandler object
+ * }
+ */
 exports.check = function(param){
     var msg;
     for (var i in param.validationData){
         msg = DataValidator[i](param.validationData[i]);
         if (msg != '') {
-            param.error(msg);
+            param.err.invalidData(msg);
             return;
         }
     }
     param.success();
 }
 
+/**
+ * @param object
+ * {
+ * url : @ErrorHandler object
+ * validationData : {@key : @value ...},
+ * success : @callback = function()
+ * err : @ErrorHandler object
+ * }
+ */
+exports.dnsCheck = function(param){
+    dns.resolve4(param.url, function (err) {
+        if (err) {
+            param.err.invalidData('adresa de email nu este valida');
+            return;
+        }
+        param.success();
+    });
+
+}
 

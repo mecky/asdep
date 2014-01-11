@@ -13,33 +13,39 @@ var log = require('../common/errorHandling/Loger');
  * - http headers
  */
 exports.login = function(req, res) {
-    var user, pass;
-    user = req.body.name;
+    var email, pass, err;
+    email = req.body.email;
     pass = req.body.pass;
+    err = new ErrHandler(res);
 
-    log.logInfo(user + " requested authentication.");
+    log.logInfo(email, + " requested authentication.");
 
     DataValidator.check({
-        validationData : {user : user, pass : pass},
+        validationData : {email : email, pass : pass},
         success : function(){
-            DbAuth.login({
-                res : res,
-                data : {
-                    user : user,
-                    pass : pass
+            DataValidator.dnsCheck({
+                url : email.split('@', 2)[1],
+                success : function(){
+                    DbAuth.login({
+                        res : res,
+                        data : {
+                            email : email,
+                            pass : pass
+                        },
+                        done : function(result, firstName){
+                            if (result){
+                                res.send({sessionId: "1234", account: {name: firstName, roles: "admin"}});
+                            }else{
+                                res.send(400, "Invalid username or password");
+                            }
+                        },
+                        err : err
+                    });
                 },
-                done : function(result){
-                    if (result){
-                        res.send({sessionId: "1234", account: {name: user, roles: "admin"}});
-                    }else{
-                        res.send(400, "Invalid username or password");
-                    }
-                }
-            });
+                err : err
+            })
         },
-        error: function(msg) {
-            ErrHandler.invalidData(res, msg);
-        }
+        err : err
     })
 };
 
