@@ -17,10 +17,12 @@ asdep.directive("loginModal", function(Auth, $rootScope, $cookies, Notification)
                         $rootScope.accountInfo = data.account;
                         $rootScope.authorized = true;
                         $("#loginModal").modal("hide");
-                        Notification.success("Bine ai venit, " + $rootScope.accountInfo.name + "!")
+                        Notification.success("Bine ai venit, " + $rootScope.accountInfo.name + "!");
+                        scope.message = undefined;
                     })
-                    .error(function() {
+                    .error(function(message) {
                         console.log("Not able to login!");
+                        scope.message = message;
                     });
             }
 

@@ -36,7 +36,7 @@ exports.login = function(req, res) {
                             if (result){
                                 res.send({sessionId: "1234", account: {name: firstName, roles: "admin"}});
                             }else{
-                                res.send(400, "Invalid username or password");
+                                res.send(400, "Email sau parola invalide");
                             }
                         },
                         err : err
