@@ -59,7 +59,7 @@ exports.check = function(param){
 exports.dnsCheck = function(param){
     dns.resolve4(param.url, function (err) {
         if (err) {
-            param.err.invalidData('adresa de email nu este valida');
+            param.fail('adresa de email nu este valida');
             return;
         }
         param.success();

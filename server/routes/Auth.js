@@ -42,7 +42,9 @@ exports.login = function(req, res) {
                         err : err
                     });
                 },
-                err : err
+                fail : function(msg){
+                    res.send(400, msg);
+                }
             })
         },
         err : err
