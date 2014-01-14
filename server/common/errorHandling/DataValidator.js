@@ -47,6 +47,7 @@ var DataValidator = {
         return '';
     },
     phoneNumber : function(phoneNumber){
+        console.log(phoneNumber);
         if (!validator.isNumeric(phoneNumber)){
             return this._illegalChars('Numarul de telefon', 'numere');
         }
