@@ -25,8 +25,7 @@ exports.query = function(param){
             param.err.databaseError('failed to connect to database: ' + err);
             return;
         }
-
-        connection.changeUser(param.database, function(err) {
+        connection.changeUser({database : param.database}, function(err) {
             if (err){
                 param.err.databaseError('changing database failed: ' + err);
                 return;

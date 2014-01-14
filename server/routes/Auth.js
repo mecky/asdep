@@ -32,9 +32,10 @@ exports.login = function(req, res) {
                             email : email,
                             pass : pass
                         },
-                        done : function(result, firstName){
+                        done : function(result, firstName, roles){
                             if (result){
-                                res.send({sessionId: "1234", account: {name: firstName, roles: "admin"}});
+                                console.log("login successfull");
+                                res.send({name: firstName, roles: roles});
                             }else{
                                 res.send(400, "Email sau parola invalide");
                             }
