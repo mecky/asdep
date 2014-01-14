@@ -14,14 +14,14 @@ var log = require('../common/errorHandling/Loger');
  */
 exports.login = function(req, res) {
     var email, pass, err;
-    email = req.body.email;
-    pass = req.body.pass;
+    email    = req.body.email;
+    password = req.body.password;
     err = new ErrHandler(res);
 
     log.logInfo(email + " requested authentication.");
 
     DataValidator.check({
-        validationData : {email : email, pass : pass},
+        validationData : {email : email, password : password},
         success : function(){
             DataValidator.dnsCheck({
                 url : email.split('@', 2)[1],
@@ -30,7 +30,7 @@ exports.login = function(req, res) {
                         res : res,
                         data : {
                             email : email,
-                            pass : pass
+                            password : password
                         },
                         done : function(result, firstName, roles){
                             if (result){
@@ -43,7 +43,7 @@ exports.login = function(req, res) {
                         err : err
                     });
                 },
-                fail : function(msg){
+                failure : function(msg){
                     res.send(400, msg);
                 }
             })
@@ -57,18 +57,36 @@ exports.logout = function(req, res) {
 };
 
 exports.createUser = function(req, res) {
-    // validate body
-    if(req.body.firstName &&
-        req.body.lastName &&
-        req.body.phone &&
-        req.body.password &&
-        req.body.email &&
-        req.body.username) {
-        console.log(req.body);
-        res.send("ok");
-    } else {
-        res.send(400, "Invalid username or password");
-    }
+
+    var firstName, lastName, phoneNumber, email, password, err;
+    err = new ErrHandler(res);
+
+    firstName   = req.body.firstName;
+    lastName    = req.body.lastName;
+    phoneNumber = req.body.phoneNumber;
+    email       = req.body.email;
+    password    = req.body.password;
+
+    DataValidator.check({
+        validationData : {
+            firstName   : firstName,
+            lastName    : lastName,
+            phoneNumber : phoneNumber,
+            email       : email,
+            password    : password
+        },
+        success : function() {
+            log.logInfo("First Name: " + firstName + "Last Name: " + lastName + "(" + phoneNumber + ") created an account.");
+            res.send("OK");
+        },
+        failure : function() {
+            res.send(400, "Invalid email / password.");
+        },
+        err : err
+    });
+
+    res.send(400, "Ceva nu este in regula!");
+
 };
 
 exports.updateUser = function(req, res) {
