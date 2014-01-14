@@ -3,6 +3,10 @@
  */
 
 
+var dbAuth = require('./DbAuth');
 
-
-
+dbAuth.getRoluri({
+    data : {
+        idUser : 2
+    }
+});
