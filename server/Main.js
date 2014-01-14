@@ -2,6 +2,7 @@
 'use strict';
 var express = require('express'),
     Auth = require('./routes/Auth'),
+    Association = require('./routes/Association'),
     //  news = require('./routes/News'),
 //    validator = require('./common/dataValidation/Validator');
     app = express();
@@ -18,7 +19,6 @@ app.use(function(req, res, next){
 });
 */
 
-// Auth
 //public
 app.post(serverRoot + '/auth/login', Auth.login);
 app.post(serverRoot + '/auth/logout', Auth.logout);
@@ -26,7 +26,11 @@ app.post(serverRoot + '/auth/logout', Auth.logout);
 
 app.put(serverRoot + '/auth/user', Auth.createUser);
 app.post(serverRoot + '/auth/user/:id', Auth.updateUser);
-app.get(serverRoot + "/auth/:sessionId", Auth.getSessionInfo)
+app.get(serverRoot + "/auth/:sessionId", Auth.getSessionInfo);
+
+// associations
+app.get(serverRoot + "/association/:userId", Association.get);
+
 ////News
 //// get will take into account the user rights and will return the list
 //// of news from all the associations he belongs to

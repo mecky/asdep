@@ -14,7 +14,7 @@ asdep.directive("loginModal", function(Auth, $rootScope, $cookies, Notification)
                         console.log(data);
 
                         $cookies.sessionId = data.sessionId;
-                        $rootScope.accountInfo = data.account;
+                        $rootScope.accountInfo = data;
                         $rootScope.authorized = true;
                         $("#loginModal").modal("hide");
                         Notification.success("Bine ai venit, " + $rootScope.accountInfo.name + "!");

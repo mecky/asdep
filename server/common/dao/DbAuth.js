@@ -83,13 +83,37 @@ var getUserRoles = function(param){
 exports.getUserRoles = getUserRoles;
 
 /**
+ *
+ * @param param object
+ * { data: {
+ *     idUser: @userId
+ * },
+ * done : @callback = function(rows),
+ * err : @ErrorHandler object
+ * }
+ */
+exports.getUserAssociations = function(param){
+    Dao.query({
+        database : 'general',
+        query : ["SELECT association_idassociation FROM general.user_has_association where user_iduser = ?;", [param.data.idUser]],
+        done : function(rows){
+            var associationsId = []
+            for (var row in rows) {
+                associationsId.push(rows[row]["association_idassociation"]);
+            }
+            param.done(associationsId);
+        },
+        err : param.err
+    });
+}
+/**
  * @param object
  * {
  * data : {
  *      user : @username
  *      pass : @password
  * },
- * done : @callback = function(boolean, ["firstName"]),
+ * done : @callback = function(boolean, ["firstName", roles]),
  * err : @ErrorHandler object
  * }
  */
