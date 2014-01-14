@@ -7,10 +7,10 @@ var dns = require('dns');
 
 var DataValidator = {
     _lengthError : function(filed, min, max){
-        return 'campul ' +  filed +' trebuie sa contina intre ' + min + ' si ' + max + ' caractere';
+        return 'Campul ' +  filed +' trebuie sa contina intre ' + min + ' si ' + max + ' caractere';
     },
     _illegalChars : function(field, data){
-        return 'campul ' + field + ' trebuie sa contina doar:' + data;
+        return 'Campul ' + field + ' trebuie sa contina doar: ' + data;
 
     },
     email : function(email){
@@ -20,7 +20,7 @@ var DataValidator = {
         return '';
     },
     password : function(password){
-        if (!validator.isLength(pass, 8, 40)){
+        if (!validator.isLength(password, 8, 40)){
             return this._lengthError('parola', 8, 40);
         }
         return '';

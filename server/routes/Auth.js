@@ -13,12 +13,11 @@ var log = require('../common/errorHandling/Loger');
  * - http headers
  */
 exports.login = function(req, res) {
-    var email, pass, err;
-    email    = req.body.email;
-    password = req.body.password;
-    err = new ErrHandler(res);
+    var email    = req.body.email;
+    var password = req.body.password;
+    var err      = new ErrHandler(res);
 
-    log.logInfo(email + " requested authentication.");
+    log.logInfo(email + "/" + password + " requested authentication.");
 
     DataValidator.check({
         validationData : {email : email, password : password},

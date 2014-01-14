@@ -1,6 +1,7 @@
 /**
  * Copyright (C) 2014 creatdenoi.ro, All Rights Reserved
  */
+'use strict';
 asdep.factory("Auth", function($http, $resource) {
     return {
         login: function(user) {

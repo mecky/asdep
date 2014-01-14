@@ -121,7 +121,7 @@ exports.login = function(param){
     Dao.query({
         database : 'general',
         query : ["select iduser, first_name as firstName from `user` " +
-            "where `email`= ? and password = ?", [param.data.email , param.data.pass]],
+            "where `email`= ? and password = ?", [param.data.email , param.data.password]],
         done : function(rows){
             if (rows[0]){
                 getUserRoles({
