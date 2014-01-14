@@ -15,16 +15,47 @@ var DataValidator = {
     },
     email : function(email){
         if (!validator.isEmail(email, 4, 30)){
-            return 'adresa de email nu este valida'
+            return 'Adresa de email nu este valida'
         }
         return '';
     },
-    pass : function(pass){
+    password : function(password){
         if (!validator.isLength(pass, 8, 40)){
             return this._lengthError('parola', 8, 40);
         }
         return '';
+
+    },
+    firstName : function(firstName){
+        var reg = /[^A-Za-z- ]/;
+        if (!validator.isLength(firstName, 3, 20)){
+            return this._lengthError('Prenumele', 3, 20);
+        }
+        if (reg.test(firstName)){
+            return this._illegalChars('Prenumele', 'litere');
+        }
+        return '';
+    },
+    lastName : function(lastName){
+        var reg = /[^A-Za-z- ]/;
+        if (!validator.isLength(lastName, 3, 20)){
+            return this._lengthError('Numele', 3, 20);
+        }
+        if (reg.test(lastName)){
+            return this._illegalChars('Numele', 'litere');
+        }
+        return '';
+    },
+    phoneNumber : function(phoneNumber){
+        if (!validator.isNumeric(phoneNumber)){
+            return this._illegalChars('Numarul de telefon', 'numere');
+        }
+        if (phoneNumber.length != 10 && phoneNumber != 13){
+            return 'Numarul de telefon trebuie sa fie 10 sau 13 cifre (ex: 07XXXXXXXX / 00407XXXXXXXX)'
+        }
+        return '';
     }
+
 }
 
 /**
@@ -59,7 +90,7 @@ exports.check = function(param){
 exports.dnsCheck = function(param){
     dns.resolve4(param.url, function (err) {
         if (err) {
-            param.fail('adresa de email nu este valida');
+            param.failure('adresa de email nu este valida');
             return;
         }
         param.success();
