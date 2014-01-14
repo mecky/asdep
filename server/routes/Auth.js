@@ -62,7 +62,7 @@ exports.createUser = function(req, res) {
 
     firstName   = req.body.firstName;
     lastName    = req.body.lastName;
-    phoneNumber = req.body.phoneNumber;
+    phoneNumber = req.body.phone;
     email       = req.body.email;
     password    = req.body.password;
 
