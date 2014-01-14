@@ -1,33 +1,35 @@
 <h2>Associatii aflate in administrare:</h2>
-
+<br/>
 <div class="row">
     <div class="col-md-6" ng-repeat="association in associations">
         <div class="thumbnail">
             <form role="form">
                 <div class="form-group">
                     <label for="name">Nume</label>
-                    <input type="text" class="form-control" id="name" ng-model="association.name">
+                    <input type="text" class="form-control" id="name" ng-model="association.name" readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="address">Adresa</label>
-                    <input type="text" class="form-control" id="address" ng-model="association.address">
+                    <input type="text" class="form-control" id="address" ng-model="association.address" readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="city">Oras</label>
-                    <input type="text" class="form-control" id="city" ng-model="association.city">
+                    <input type="text" class="form-control" id="city" ng-model="association.city" readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="county">Judet</label>
-                    <input type="text" class="form-control" id="county" ng-model="association.county">
+                    <input type="text" class="form-control" id="county" ng-model="association.county" readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="appartments">Nr de Apartamente</label>
-                    <input type="text" class="form-control" id="appartments" ng-model="association.number_of_apartments">
+                    <input type="text" class="form-control" id="appartments" ng-model="association.number_of_apartments" readonly>
                 </div>
+                <button class="btn btn-primary">Update</button>
+                <button class="btn btn-danger" ng-click="deleteAssociation($index)">Delete</button>
             </form>
         </div>
     </div>

@@ -9,5 +9,9 @@ asdep.controller("AdminInfoCtrl", function($scope, AssociationInfo) {
             console.log(data);
             $scope.associations = data;
         }
-    )
+    );
+
+    $scope.deleteAssociation = function(index) {
+        confirm("Stergeti associatia " + $scope.associations[index].name + "?");
+    }
 });
