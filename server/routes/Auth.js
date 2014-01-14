@@ -34,7 +34,19 @@ exports.login = function(req, res) {
                         },
                         done : function(result, firstName){
                             if (result){
-                                res.send({sessionId: "1234", account: {name: firstName, roles: "admin"}});
+                                res.send({
+                                    sessionId: "1234",
+                                    account: {
+                                        name: firstName,
+                                        roles: [ {
+                                            associationId: 1,
+                                            role:3
+                                        },{
+                                            associationId: 2,
+                                            role:1
+                                        }]
+                                    }
+                                });
                             }else{
                                 res.send(400, "Email sau parola invalide");
                             }
