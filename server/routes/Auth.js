@@ -5,12 +5,16 @@ var DbAuth = require('../common/dao/DbAuth');
 var DataValidator = require('../common/errorHandling/DataValidator');
 var ErrHandler = require('../common/errorHandling/ErrorHandler');
 var log = require('../common/errorHandling/Loger');
+
+
 /**
- * To document:
- * - url + query parameters
- * - data format
- * - return format
- * - http headers
+ * Handle user & password validation for login mechanism.
+ *
+ * POST: /api/login
+ *
+ * DATA format: {password: "...", email: "you@example.com"}
+ *
+ * RESPONSE: { "name": "firstName1", "roles": { "admin": true, "tenant": true }}
  */
 exports.login = function(req, res) {
     var email    = req.body.email;
@@ -50,21 +54,27 @@ exports.login = function(req, res) {
         err : err
     })
 };
-
+/**
+ * Handle logout request.
+ */
 exports.logout = function(req, res) {
     res.send("ok");
 };
-
+/**
+ * Handle new user creation.
+ *
+ * PUT: /api/auth/user
+ *
+ * Data format: { email: 'you@example.com', lastName: 'a', firstName: 'b', phone: '0727894989', password: 'password1' }
+ */
 exports.createUser = function(req, res) {
+    var err = new ErrHandler(res);
 
-    var firstName, lastName, phoneNumber, email, password, err;
-    err = new ErrHandler(res);
-
-    firstName   = req.body.firstName;
-    lastName    = req.body.lastName;
-    phoneNumber = req.body.phone;
-    email       = req.body.email;
-    password    = req.body.password;
+    var firstName   = req.body.firstName;
+    var lastName    = req.body.lastName;
+    var phoneNumber = req.body.phone;
+    var email       = req.body.email;
+    var password    = req.body.password;
 
     DataValidator.check({
         validationData : {
@@ -76,20 +86,17 @@ exports.createUser = function(req, res) {
         },
         success : function() {
             log.logInfo("First Name: " + firstName + "Last Name: " + lastName + "(" + phoneNumber + ") created an account.");
-            res.send("OK");
+            res.send(200);
         },
         failure : function() {
-            res.send(400, "Invalid email / password.");
+            res.send(400, "Email / parola invalide.");
         },
         err : err
     });
-
-    res.send(400, "Ceva nu este in regula!");
-
 };
 
 exports.updateUser = function(req, res) {
-    res.send("ok");
+    res.send(200);
 };
 
 exports.getSessionInfo = function(req, res) {
