@@ -3,14 +3,21 @@
 var express = require('express'),
     Auth = require('./routes/Auth'),
     Association = require('./routes/Association'),
+    ErrHandler = require('./common/errorHandling/ErrorHandler'),
     //  news = require('./routes/News'),
-//    validator = require('./common/dataValidation/Validator');
     app = express();
 
 var serverRoot = "/api";
 
 app.use(express.json());
 app.use(express.urlencoded());
+
+//err handler midleware
+app.use(function(req, res, next){
+    res.errHandler = new ErrHandler(res);
+    next();
+});
+
 //TODO introduce auth manager middleware function
 /*
 app.use(function(req, res, next){

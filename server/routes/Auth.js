@@ -3,7 +3,6 @@
  */
 var DbAuth = require('../common/dao/DbAuth');
 var DataValidator = require('../common/errorHandling/DataValidator');
-var ErrHandler = require('../common/errorHandling/ErrorHandler');
 var log = require('../common/errorHandling/Loger');
 
 
@@ -19,7 +18,6 @@ var log = require('../common/errorHandling/Loger');
 exports.login = function(req, res) {
     var email    = req.body.email;
     var password = req.body.password;
-    var err      = new ErrHandler(res);
 
     log.logInfo(email + "/" + password + " requested authentication.");
 
@@ -43,7 +41,7 @@ exports.login = function(req, res) {
                                 res.send(400, "Email sau parola invalide");
                             }
                         },
-                        err : err
+                        err : res.errHandler
                     });
                 },
                 failure : function(msg){
@@ -51,7 +49,7 @@ exports.login = function(req, res) {
                 }
             })
         },
-        err : err
+        err : res.errHandler
     })
 };
 /**
@@ -68,8 +66,6 @@ exports.logout = function(req, res) {
  * Data format: { email: 'you@example.com', lastName: 'a', firstName: 'b', phone: '0727894989', password: 'password1' }
  */
 exports.createUser = function(req, res) {
-    var err = new ErrHandler(res);
-
     var firstName   = req.body.firstName;
     var lastName    = req.body.lastName;
     var phoneNumber = req.body.phone;
@@ -85,13 +81,18 @@ exports.createUser = function(req, res) {
             password    : password
         },
         success : function() {
-            log.logInfo("First Name: " + firstName + "Last Name: " + lastName + "(" + phoneNumber + ") created an account.");
-            res.send(200);
+            DataValidator.dnsCheck({
+                url : email.split('@', 2)[1],
+                success : function(){
+                    log.logInfo("First Name: " + firstName + "Last Name: " + lastName + "(" + phoneNumber + ") created an account.");
+                    res.send(200);
+                },
+                failure : function(msg){
+                    res.send(400, msg);
+                }
+            });
         },
-        failure : function() {
-            res.send(400, "Email / parola invalide.");
-        },
-        err : err
+        err : res.errHandler
     });
 };
 
