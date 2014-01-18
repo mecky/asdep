@@ -23,7 +23,7 @@ exports.getInfo = function(param){
 
     Dao.query({
         database : 'general',
-        query : ['SELECT * FROM general.association where idassociation in (' + ids+ ');', param.data.associations ],
+        query : ['SELECT * FROM general.association where idAssociation in (' + ids+ ');', param.data.associations ],
         done : function(rows){
             param.done(rows);
         },

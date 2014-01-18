@@ -61,7 +61,7 @@ createAssociation(){
             ADDRESS=$7
         else
             echo "NOTE: Please make sure that \`general\` database was previousely created!";
-            ID_ASSOCIATION=`runQuery "select MAX(idassociation) from general.association" | tr -dc '[0-9]'`;
+            ID_ASSOCIATION=`runQuery "select MAX(idAssociation) from general.association" | tr -dc '[0-9]'`;
             ID_ASSOCIATION=`expr $ID_ASSOCIATION + 1`;
             echo -n "(char[45]) name = ";
             read -r NAME;
@@ -71,13 +71,13 @@ createAssociation(){
             read -r COUNTY;
             echo -n "(char[25]) city = ";
             read -r CITY;
-            echo -n "(unsigned int) number_of_apartments = ";
+            echo -n "(unsigned int) numberOfApartments = ";
             read -r NOA;
             echo -n "(char[50]) address = ";
             read -r ADDRESS;
         fi
         echo "Creating association$ID_ASSOCIATION";
-        QUERY="INSERT INTO \`general\`.\`association\` (\`idassociation\`, \`name\`, \`cui\`, \`county\`, \`city\`, \`number_of_apartments\`, \`address\`)";
+        QUERY="INSERT INTO \`general\`.\`association\` (\`idAssociation\`, \`name\`, \`cui\`, \`county\`, \`city\`, \`numberOfApartments\`, \`address\`)";
         QUERY=$QUERY" VALUES ('$ID_ASSOCIATION', '$NAME', '$CUI', '$COUNTY', '$CITY', '$NOA', '$ADDRESS')";
         runQuery "$QUERY";
         echo " -> data was inserted in general.association table";
@@ -104,9 +104,9 @@ defaultInit(){
     populateGeneral;
     createAssociation "1" "Asociatia De Proprietari Nr. 1" "1234567890123" "Hunedoara" "Deva" "123" "Bld. Decebal, Bl. M, Sc. C, Ap.92";
     createAssociation "2" "Asociatia De Proprietari Nr. 1" "1234567890124" "Timis" "Timisoara" "50" "Bld. Parvan, Bl. R, Sc. C, Ap.12";
-    runQuery "INSERT INTO \`general\`.\`user_has_association\` (\`user_iduser\`, \`association_idassociation\`, \`roles\`) VALUES ('1', '1', '2')";
-    runQuery "INSERT INTO \`general\`.\`user_has_association\` (\`user_iduser\`, \`association_idassociation\`, \`roles\`) VALUES ('1', '2', '2')";
-    runQuery "INSERT INTO \`general\`.\`user_has_association\` (\`user_iduser\`, \`association_idassociation\`, \`roles\`) VALUES ('2', '1', '2')";
+    runQuery "INSERT INTO \`general\`.\`userHasAssociation\` (\`userIdUser\`, \`associationIdAssociation\`, \`roles\`) VALUES ('1', '1', '2')";
+    runQuery "INSERT INTO \`general\`.\`userHasAssociation\` (\`userIdUser\`, \`associationIdAssociation\`, \`roles\`) VALUES ('1', '2', '2')";
+    runQuery "INSERT INTO \`general\`.\`userHasAssociation\` (\`userIdUser\`, \`associationIdAssociation\`, \`roles\`) VALUES ('2', '1', '2')";
     populateAssociation "association1";
     populateAssociation "association2";
     #add administrator roles
@@ -128,7 +128,7 @@ case "$1" in
         case "$2" in
         association*[0-9])
             ID=`echo "$2" | tr -d '[:alpha:]'`
-            runQuery "DELETE FROM \`general\`.\`association\` WHERE \`idassociation\`='$ID'";
+            runQuery "DELETE FROM \`general\`.\`association\` WHERE \`idAssociation\`='$ID'";
         ;;
         esac;
         echo "Done";
@@ -147,7 +147,7 @@ case "$1" in
         esac;
         ;;
     "-s"|"--showAssociations")
-        echo "Associations database names are formed usnig \"association<idassociation>\"\n Ex: dbname = association1 for idassociation = 1"
+        echo "Associations database names are formed usnig \"association<idAssociation>\"\n Ex: dbname = association1 for idAssociation = 1"
         runQuery "select * from general.association";
         ;;
     "-a"|"--alter")

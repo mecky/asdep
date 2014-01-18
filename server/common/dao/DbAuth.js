@@ -33,8 +33,8 @@ function isAdmin(roles){
 var getUserRights = function(param){
     Dao.query({
         database : 'general',
-        query : ["select association_idassociation as idAssociation, roles from user_has_association where " +
-            "user_has_association.user_iduser = '?';", [param.data.idUser]],
+        query : ["select associationIdAssociation as idAssociation, roles from userHasAssociation where " +
+            "userHasAssociation.userIdUser = '?';", [param.data.idUser]],
         done : function(rows){
             var roles = {};
             for (var i in rows){
@@ -47,7 +47,7 @@ var getUserRights = function(param){
                     Dao.query({
                         idAssociation : row.idAssociation,
                         database : 'association' + row.idAssociation,
-                        query : ["select apartment_idapartment as idApartment from user_has_apartment where user_iduser = ?;", [param.data.idUser]],
+                        query : ["select apartmentIdApartment as idApartment from userHasApartment where userIdUser = ?;", [param.data.idUser]],
                         done : function(rows){
                             for (var i in rows){
                                 var apartment = rows[i].idApartment;
@@ -73,7 +73,7 @@ exports.getUserRights = getUserRights;
 var getUserRoles = function(param){
     Dao.query({
         database : 'general',
-        query : ["select BIT_OR(roles) as roles from user_has_association where user_iduser = '?';", [param.data.idUser]],
+        query : ["select BIT_OR(roles) as roles from userHasAssociation where userIdUser = '?';", [param.data.idUser]],
         done : function(rows){
            param.done({admin : isAdmin(rows[0].roles), tenant : isTenant(rows[0].roles)});
         },
@@ -95,11 +95,11 @@ exports.getUserRoles = getUserRoles;
 exports.getUserAssociations = function(param){
     Dao.query({
         database : 'general',
-        query : ["SELECT association_idassociation FROM general.user_has_association where user_iduser = ?;", [param.data.idUser]],
+        query : ["SELECT associationIdAssociation FROM general.userHasAssociation where userIdUser = ?;", [param.data.idUser]],
         done : function(rows){
             var associationsId = []
             for (var row in rows) {
-                associationsId.push(rows[row]["association_idassociation"]);
+                associationsId.push(rows[row]["associationIdAssociation"]);
             }
             param.done(associationsId);
         },
@@ -120,7 +120,7 @@ exports.getUserAssociations = function(param){
 exports.login = function(param){
     Dao.query({
         database : 'general',
-        query : ["select iduser, first_name as firstName from `user` " +
+        query : ["select idUser, firstName as firstName from `user` " +
             "where `email`= ? and password = ?", [param.data.email , param.data.password]],
         done : function(rows){
             if (rows[0]){
