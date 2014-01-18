@@ -1,6 +1,5 @@
 <form name="loginForm" class="form-horizontal" role="form" style="margin-top: 20px">
     <div id="alert" class="alert alert-danger" ng-show="message">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         {{ message }}
     </div>
 
@@ -8,10 +7,11 @@
         <label for="email" class="col-sm-2 control-label">Email</label>
         <div class="col-sm-8">
             <input type="email"
-                   class="form-control"
+                   class="form-control "
                    id="email"
                    placeholder="you@example.com"
                    ng-model="user.email"
+
                    required
                    autofocus>
         </div>

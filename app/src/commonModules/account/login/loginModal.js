@@ -32,8 +32,9 @@ asdep.directive("loginModal", function(Auth, $rootScope, $cookies, Notification)
 
                 console.log(scope.account);
                 Auth.createUser(scope.account)
-                    .success(function(data) {
+                    .success(function() {
                         $("#loginModal").modal("hide");
+                        Notification.success("Contul a fost creat cu succes")
                         scope.message = undefined;
                     })
                     .error(function(message) {

@@ -1,43 +1,46 @@
 <form name="accountForm" class="form-horizontal" role="form" style="margin-top: 20px" novalidate>
     <div id="alert" class="alert alert-danger" ng-show="message">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         {{ message }}
     </div>
 
-    <div class="form-group">
+    <div class="form-group" ng-class="{'has-error': !accountForm.email.$valid}">
         <label for="email" class="col-sm-4 control-label">Email <span class="form-required">*</span></label>
         <div class="col-sm-7">
             <input type="email"
                    class="form-control"
                    id="email"
+                   name="email"
                    placeholder="Email"
                    ng-model="account.email">
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-class="{'has-error': !accountForm.firstName.$valid}">
         <label for="firstName" class="col-sm-4 control-label">Nume <span class="form-required">*</span></label>
         <div class="col-sm-7">
             <input type="text"
                    class="form-control"
                    id="firstName"
+                   name="firstName"
                    placeholder="Nume"
                    ng-model="account.lastName"
                    ng-minlength="3"
                    ng-maxlength="20"
-                   ng-pattern="/[A-Za-z- ]/"
+                   ng-pattern="/^[a-zA-Z- ]+$/"
                    required>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-class="{'has-error': !accountForm.lastName.$valid}">
         <label for="lastName" class="col-sm-4 control-label">Prenume <span class="form-required">*</span></label>
         <div class="col-sm-7">
             <input type="text"
                    class="form-control"
                    id="lastName"
+                   name="lastName"
                    placeholder="Prenume"
                    ng-model="account.firstName"
                    ng-minlength="3"
                    ng-maxlength="20"
+                   ng-pattern="/^[a-zA-Z- ]+$/"
                    required>
         </div>
     </div>
@@ -47,12 +50,13 @@
             <input type="tel" class="form-control" id="phone" placeholder="Telefon" ng-model="account.phone">
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-class="{'has-error': !accountForm.password1.$valid}">
         <label for="password1" class="col-sm-4 control-label">Parola <span class="form-required">*</span></label>
         <div class="col-sm-7">
             <input type="password"
                    class="form-control"
                    id="password1"
+                   name="password1"
                    placeholder="Parola"
                    ng-model="account.password"
                    ng-minlength="8"
@@ -60,12 +64,13 @@
                    required>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-class="{'has-error': !accountForm.password2.$valid || (account.password != account.confirmPassword)}">
         <label for="password2" class="col-sm-4 control-label">Confirma Parola <span class="form-required">*</span></label>
         <div class="col-sm-7">
             <input type="password"
                    class="form-control"
                    id="password2"
+                   name="password2"
                    placeholder="Parola"
                    ng-minlength="8"
                    ng-maxlength="40"
