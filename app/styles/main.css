@@ -10,3 +10,7 @@ body {
     top: 60px;
     right: 12px;
 }
+
+.form-required {
+    color: red;
+}

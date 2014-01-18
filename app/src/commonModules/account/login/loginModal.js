@@ -27,13 +27,18 @@ asdep.directive("loginModal", function(Auth, $rootScope, $cookies, Notification)
             }
 
             scope.createAccount = function() {
+                delete scope.account.agree;
+                delete scope.account.confirmPassword;
+
+                console.log(scope.account);
                 Auth.createUser(scope.account)
                     .success(function(data) {
-                        console.log(data)
                         $("#loginModal").modal("hide");
+                        scope.message = undefined;
                     })
-                    .error(function() {
+                    .error(function(message) {
                         console.log("Not able to login!");
+                        scope.message = message;
                     })
             }
         }
