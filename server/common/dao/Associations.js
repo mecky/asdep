@@ -30,3 +30,28 @@ exports.getInfo = function(param){
         err : param.err
     });
 };
+
+/**
+ *
+ * @param param object
+ * { data: {
+ *     associations: [1,2,3]
+ * },
+ * done : @callback = function(rows),
+ * err : @ErrorHandler object
+ * }
+ */
+exports.getInfo4association = function(param){
+    Dao.query({
+        database : 'general',
+        query : ['SELECT * FROM general.association where idAssociation = ?', param.data.associationId ],
+        done : function(rows){
+            if (rows[0]) {
+                param.done(rows[0]);
+            } else {
+                param.err.invalidData("Nu exista asociatii pentru ID-ul specificat");
+            }
+        },
+        err : param.err
+    });
+};

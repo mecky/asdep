@@ -3,10 +3,12 @@
  */
 'use strict';
 
-asdep.controller("AdminInfoCtrl", function($scope, AssociationInfo) {
-    AssociationInfo.get({id: "1"},
+asdep.controller("AdminInfoCtrl", function($scope, $routeParams, AssociationInfo) {
+    var associationId = $routeParams.associationId;
+
+    AssociationInfo.get({id: associationId},
         function onSuccess(data) {
-            $scope.associations = data;
+            $scope.association = data;
         }
     );
 
