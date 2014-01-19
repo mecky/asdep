@@ -75,7 +75,9 @@ var getUserRoles = function(param){
         database : 'general',
         query : ["select BIT_OR(roles) as roles from userHasAssociation where userIdUser = '?';", [param.data.idUser]],
         done : function(rows){
-           param.done({admin : isAdmin(rows[0].roles), tenant : isTenant(rows[0].roles)});
+            // TODO: send the roles for all associations, not only for the first
+            // role=true if the user has the role on at least one association
+            param.done({admin : isAdmin(rows[0].roles), tenant : isTenant(rows[0].roles)});
         },
         err : param.err
     });
@@ -126,7 +128,7 @@ exports.login = function(param){
             if (rows[0]){
                 getUserRoles({
                     data : {
-                        idUser :  rows[0].iduser
+                        idUser :  rows[0].idUser
                     },
                     done : function(roles){
                         console.log(roles);
