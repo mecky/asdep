@@ -46,12 +46,19 @@ var DataValidator = {
         }
         return '';
     },
+    /**
+     * Validate the phone number.
+     * @phoneNumber:    - null, 10 digit number or 13 digit number.
+     */
     phoneNumber : function(phoneNumber){
-        if (!validator.isNumeric(phoneNumber)){
-            return this._illegalChars('Numarul de telefon', 'numere');
-        }
-        if (phoneNumber.length != 10 && phoneNumber != 13){
-            return 'Numarul de telefon trebuie sa fie 10 sau 13 cifre (ex: 07XXXXXXXX / 00407XXXXXXXX)'
+        if (phoneNumber) {
+            if (!validator.isNumeric(phoneNumber)){
+                return this._illegalChars('Numarul de telefon', 'numere');
+            }
+
+            if (phoneNumber.length != 10 && phoneNumber != 13){
+                return 'Numarul de telefon trebuie sa fie 10 sau 13 cifre (ex: 07XXXXXXXX / 00407XXXXXXXX)'
+            }
         }
         return '';
     }
