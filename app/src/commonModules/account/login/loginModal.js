@@ -11,8 +11,6 @@ asdep.directive("loginModal", function(Auth, $rootScope, $cookies, Notification)
             scope.login = function() {
                 Auth.login(scope.user)
                     .success(function(data) {
-                        console.log(data);
-
                         $cookies.sessionId = data.sessionId;
                         $rootScope.accountInfo = data;
                         $rootScope.authorized = true;
@@ -21,7 +19,6 @@ asdep.directive("loginModal", function(Auth, $rootScope, $cookies, Notification)
                         scope.message = undefined;
                     })
                     .error(function(message) {
-                        console.log("Not able to login!");
                         scope.message = message;
                     });
             }
@@ -38,7 +35,6 @@ asdep.directive("loginModal", function(Auth, $rootScope, $cookies, Notification)
                         scope.message = undefined;
                     })
                     .error(function(message) {
-                        console.log("Not able to login!");
                         scope.message = message;
                     })
             }

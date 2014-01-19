@@ -28,7 +28,6 @@ exports.login = function(req, res) {
                 url : email.split('@', 2)[1],
                 success : function(){
                     DbAuth.login({
-                        res : res,
                         data : {
                             email : email,
                             password : password
@@ -56,7 +55,7 @@ exports.login = function(req, res) {
  * Handle logout request.
  */
 exports.logout = function(req, res) {
-    res.send("ok");
+    res.send(200);
 };
 /**
  * Handle new user creation.
@@ -66,25 +65,27 @@ exports.logout = function(req, res) {
  * Data format: { email: 'you@example.com', lastName: 'a', firstName: 'b', phone: '0727894989', password: 'password1' }
  */
 exports.createUser = function(req, res) {
-    var firstName   = req.body.firstName;
-    var lastName    = req.body.lastName;
-    var phoneNumber = req.body.phone;
-    var email       = req.body.email;
-    var password    = req.body.password;
+    var account = {
+        firstName   : req.body.firstName,
+        lastName    : req.body.lastName,
+        phoneNumber : req.body.phone,
+        email       : req.body.email,
+        password    : req.body.password
+    }
 
     DataValidator.check({
-        validationData : {
-            firstName   : firstName,
-            lastName    : lastName,
-            phoneNumber : phoneNumber,
-            email       : email,
-            password    : password
-        },
+        validationData : account,
         success : function() {
             DataValidator.dnsCheck({
-                url : email.split('@', 2)[1],
+                url : account.email.split('@', 2)[1],
                 success : function(){
-                    log.logInfo("First Name: " + firstName + "Last Name: " + lastName + "(" + phoneNumber + ") created an account.");
+                    DbAuth.createAccount({
+                        data: account,
+                        done: function() {
+                            console.log("insertion done");
+                        },
+                        err: res.errHandler
+                    })
                     res.send(200);
                 },
                 failure : function(msg){

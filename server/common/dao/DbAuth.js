@@ -142,3 +142,15 @@ exports.login = function(param){
         err : param.err
     });
 };
+
+exports.createAccount = function(param) {
+    Dao.query({
+        database: 'general',
+        query: ["INSERT INTO user SET ?", param.data],
+        done: function(data) {
+            console.log(data);
+            param.done();
+        },
+        err: param.err
+    })
+}
