@@ -11,6 +11,7 @@ asdep.directive("navbar", function(Auth, $cookieStore, $rootScope, Notification)
                         console.log("logout successful")
                         $cookieStore.remove("sessionId");
                         $rootScope.authorized = false;
+                        delete $rootScope.accountInfo;
                         Notification.success("La revedere!");
                     })
                     .error(function() {
