@@ -3,7 +3,8 @@
     "version": "0.0.0",
     "dependencies": {
         "mysql":"~2.0.0-rc1",
-        "validator":"~3.0.0"
+        "validator":"~3.0.0",
+        "cookies" : "0.x.x"
     },
     "devDependencies": {
         "grunt": "~0.4.1",

@@ -11,9 +11,9 @@ var log = require('../common/errorHandling/Loger');
  *
  * POST: /api/login
  *
- * DATA format: {password: "...", email: "you@example.com"}
+ * DATA format: {password: @password, email: @email}
  *
- * RESPONSE: { "name": "firstName1", "roles": { "admin": true, "tenant": true }}
+ * RESPONSE: {name: @firstName, roles: { admin: boolean, tenant: boolean }}
  */
 exports.login = function(req, res) {
     var email    = req.body.email;
@@ -25,6 +25,9 @@ exports.login = function(req, res) {
         validationData : {email : email, password : password},
         success : function(){
             DataValidator.dnsCheck({
+                failure : function(msg){
+                    res.send(400, msg);
+                },
                 url : email.split('@', 2)[1],
                 success : function(){
                     DbAuth.login({
@@ -42,9 +45,6 @@ exports.login = function(req, res) {
                         },
                         err : res.errHandler
                     });
-                },
-                failure : function(msg){
-                    res.send(400, msg);
                 }
             })
         },
@@ -62,7 +62,7 @@ exports.logout = function(req, res) {
  *
  * PUT: /api/auth/user
  *
- * Data format: { email: 'you@example.com', lastName: 'a', firstName: 'b', phone: '0727894989', password: 'password1' }
+ * Data format: { email : @email, lastName : @lastName, firstName: @firstName, phone: @phoneNumber, password: @password }
  */
 exports.createUser = function(req, res) {
     var account = {

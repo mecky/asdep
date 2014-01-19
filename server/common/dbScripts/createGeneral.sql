@@ -9,14 +9,14 @@ USE `general` ;
 -- Table `general`.`association`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `general`.`association` (
-  `idassociation` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `idAssociation` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `cui` VARCHAR(13) NOT NULL,
   `county` VARCHAR(20) NOT NULL,
   `city` VARCHAR(25) NOT NULL,
-  `number_of_apartments` INT UNSIGNED NOT NULL,
+  `numberOfApartments` INT UNSIGNED NOT NULL,
   `address` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`idassociation`),
+  PRIMARY KEY (`idAssociation`),
   UNIQUE INDEX `cui_UNIQUE` (`cui` ASC))
 ENGINE = InnoDB;
 
@@ -25,36 +25,36 @@ ENGINE = InnoDB;
 -- Table `general`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `general`.`user` (
-  `iduser` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `idUser` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(45) NOT NULL,
-  `first_name` VARCHAR(30) NOT NULL,
-  `last_name` VARCHAR(30) NOT NULL,
+  `firstName` VARCHAR(30) NOT NULL,
+  `lastName` VARCHAR(30) NOT NULL,
   `password` VARCHAR(40) NOT NULL,
-  `created_date` VARCHAR(45) NOT NULL,
-  `phone_number` VARCHAR(45) NULL,
-  PRIMARY KEY (`iduser`),
+  `createdDate` VARCHAR(45) NOT NULL,
+  `phoneNumber` VARCHAR(45) NULL,
+  PRIMARY KEY (`idUser`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `general`.`user_has_association`
+-- Table `general`.`userHasAssociation`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `general`.`user_has_association` (
-  `user_iduser` INT UNSIGNED NOT NULL,
-  `association_idassociation` INT UNSIGNED NOT NULL,
-  `roles` INT UNSIGNED NOT NULL COMMENT '1 << 0 - tenant\n1 << 1 - administrator\n1 << 2 - censor\n1 << 3 - president',
-  PRIMARY KEY (`association_idassociation`, `user_iduser`),
-  INDEX `fk_user_has_association_association1_idx` (`association_idassociation` ASC),
-  INDEX `fk_user_has_association_user_idx` (`user_iduser` ASC),
-  CONSTRAINT `fk_user_has_association_user`
-    FOREIGN KEY (`user_iduser`)
-    REFERENCES `general`.`user` (`iduser`)
+CREATE TABLE IF NOT EXISTS `general`.`userHasAssociation` (
+  `userIdUser` INT UNSIGNED NOT NULL,
+  `associationIdAssociation` INT UNSIGNED NOT NULL,
+  `roles` INT UNSIGNED NOT NULL COMMENT '1 << 0 - tenant\n1 << 1 - administrator',
+  PRIMARY KEY (`userIdUser`, `associationIdAssociation`),
+  INDEX `fkUserHasAssociationAssociation1_idx` (`associationIdAssociation` ASC),
+  INDEX `fkUserHasAssociationUser_idx` (`userIdUser` ASC),
+  CONSTRAINT `fkUserHasAssociationUser`
+    FOREIGN KEY (`userIdUser`)
+    REFERENCES `general`.`user` (`idUser`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_user_has_association_association1`
-    FOREIGN KEY (`association_idassociation`)
-    REFERENCES `general`.`association` (`idassociation`)
+  CONSTRAINT `fkUserHasAssociationAssociation1`
+    FOREIGN KEY (`associationIdAssociation`)
+    REFERENCES `general`.`association` (`idAssociation`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
@@ -62,27 +62,27 @@ ENGINE = InnoDB;
 USE `general` ;
 
 -- -----------------------------------------------------
--- procedure add_role
+-- procedure addRole
 -- -----------------------------------------------------
 
 DELIMITER $$
 USE `general`$$
-create procedure `add_role`(in idassociation integer unsigned, in iduser integer unsigned, 
+create procedure `addRole`(in idAssociation integer unsigned, in idUser integer unsigned, 
 						in role integer unsigned)
 begin
-declare `old_role` integer unsigned;
-if ((select count(`user_iduser`) from `user_has_association` 
-where `user_iduser` = iduser and `association_idassociation` = idassociation) = 0)
+declare `oldRole` integer unsigned;
+if ((select count(`userIdUser`) from `userHasAssociation` 
+where `userIdUser` = idUser and `associationIdAssociation` = idAssociation) = 0)
 then 
-	insert into `user_has_association` (`association_idassociation`, `user_iduser`,`roles`) 
-	values (idassociation, iduser, role);
+	insert into `userHasAssociation` (`associationIdAssociation`, `userIdUser`,`roles`) 
+	values (idAssociation, idUser, role);
 else
-	select roles from `user_has_association` 
-	where `user_iduser` = iduser and `association_idassociation` = idassociation into `old_role`;
-	set `old_role` = (`old_role` | role);
-	update `user_has_association` set `roles`= `old_role` where 
-	`association_idassociation` = idassociation 
-	and `user_iduser` = iduser;
+	select roles from `userHasAssociation` 
+	where `userIdUser` = idUser and `associationIdAssociation` = idAssociation into `oldRole`;
+	set `oldRole` = (`oldRole` | role);
+	update `userHasAssociation` set `roles`= `oldRole` where 
+	`associationIdAssociation` = idAssociation 
+	and `userIdUser` = idUser;
 end if;
 end 
 $$
@@ -90,27 +90,27 @@ $$
 DELIMITER ;
 
 -- -----------------------------------------------------
--- procedure remove_role
+-- procedure removeRole
 -- -----------------------------------------------------
 
 DELIMITER $$
 USE `general`$$
-create procedure `remove_role`(in idassociation integer unsigned, in iduser integer unsigned, 
+create procedure `removeRole`(in idAssociation integer unsigned, in idUser integer unsigned, 
                            in role integer unsigned)
 begin
-declare `old_role` tinyint;
-select roles from `user_has_association` 
-where `user_iduser` = iduser and `association_idassociation` = idassociation into `old_role`;
--- verificam daca el are alt rol in asociatie si facem update, in cazul in care nu are alt rol stergem linku user_has_association
-if ((`old_role` & (~role)) != 0)
+declare `oldRole` tinyint;
+select roles from `userHasAssociation` 
+where `userIdUser` = idUser and `associationIdAssociation` = idAssociation into `oldRole`;
+-- verificam daca el are alt rol in asociatie si facem update, in cazul in care nu are alt rol stergem linku userHasAssociation
+if ((`oldRole` & (~role)) != 0)
 then
-    set `old_role` = `old_role` & (~role);
-    update `user_has_association` set `roles`= `old_role` where 
-    `association_idassociation` = idassociation 
-    and `user_iduser` = iduser;
+    set `oldRole` = `oldRole` & (~role);
+    update `userHasAssociation` set `roles`= `oldRole` where 
+    `associationIdAssociation` = idAssociation 
+    and `userIdUser` = idUser;
 else 
-    delete from `user_has_association` 
-    where `association_idassociation` = idassociation and `user_iduser` = iduser;
+    delete from `userHasAssociation` 
+    where `associationIdAssociation` = idAssociation and `userIdUser` = idUser;
 end if;
 
 end
