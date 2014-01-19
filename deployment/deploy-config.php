@@ -19,7 +19,7 @@
  *
  * @var string
  */
-define('SECRET_ACCESS_TOKEN', 'HubbaBubba');
+define('SECRET_ACCESS_TOKEN', 'aUS7XgjrGQIrSnLfHd4eumn28MPyA32s');
 
 /**
  * The address of the remote Git repository that contains the code that's being
@@ -110,7 +110,7 @@ define('TIME_LIMIT', 30);
  *
  * @var string Full backup directory path e.g. '/tmp/'
  */
-define('BACKUP_DIR', true);
+define('/tmp/', true);
 
 /**
  * OPTIONAL
