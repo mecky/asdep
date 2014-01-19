@@ -147,10 +147,10 @@ exports.createAccount = function(param) {
     Dao.query({
         database: 'general',
         query: ["INSERT INTO user SET ?", param.data],
-        done: function(data) {
-            console.log(data);
+        done: function() {
             param.done();
         },
+        // TODO handle error messages more precise
         err: param.err
     })
 }

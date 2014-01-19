@@ -68,7 +68,7 @@ exports.createUser = function(req, res) {
     var account = {
         firstName   : req.body.firstName,
         lastName    : req.body.lastName,
-        phoneNumber : req.body.phone,
+        phoneNumber : req.body.phoneNumber,
         email       : req.body.email,
         password    : req.body.password
     }
@@ -82,11 +82,11 @@ exports.createUser = function(req, res) {
                     DbAuth.createAccount({
                         data: account,
                         done: function() {
-                            console.log("insertion done");
+                            log.logInfo("Insertion done");
+                            res.send(200);
                         },
                         err: res.errHandler
                     })
-                    res.send(200);
                 },
                 failure : function(msg){
                     res.send(400, msg);
