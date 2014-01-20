@@ -15,6 +15,7 @@ usage(){
     echo "-a --alter                        alter <dbname> using script: <alterFile>";
     echo "-aa --alteAllAssociations         can be used for alltering all asociations using script: <alterFile>";
     echo "-s --showAssociatons              show available associations databases";
+    echo "-si                               show info associations from association.general";
     echo "\ndbtype: association/general";
 }
 
@@ -147,7 +148,12 @@ case "$1" in
         esac;
         ;;
     "-s"|"--showAssociations")
+        echo "associations from database:";
+        runQuery "show databases" | grep associations;
+        ;;
+    "-si")
         echo "Associations database names are formed usnig \"association<idAssociation>\"\n Ex: dbname = association1 for idAssociation = 1"
+        echo "associations from general.association:";
         runQuery "select * from general.association";
         ;;
     "-a"|"--alter")
