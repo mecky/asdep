@@ -3,7 +3,7 @@
  */
 'use strict';
 
-asdep.controller("AdminInfoCtrl", function($scope, $routeParams, AssociationInfo) {
+asdep.controller("AdminInfoCtrl", function($scope, $routeParams, AssociationInfo, Notification) {
     var associationId = $routeParams.associationId;
 
     AssociationInfo.get({id: associationId},
@@ -13,6 +13,9 @@ asdep.controller("AdminInfoCtrl", function($scope, $routeParams, AssociationInfo
     );
 
     $scope.deleteAssociation = function(index) {
-        confirm("Stergeti associatia \"" + $scope.associations[index].name + "\"?");
+        var asName = $scope.association.name;
+        if (confirm("Stergeti associatia \"" + asName + "\"?")) {
+            Notification.success(asName + " a fost stearsa.")
+        }
     }
 });
