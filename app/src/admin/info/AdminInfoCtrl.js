@@ -12,7 +12,7 @@ asdep.controller("AdminInfoCtrl", function($scope, $routeParams, AssociationInfo
         }
     );
 
-    $scope.deleteAssociation = function(index) {
+    $scope.deleteAssociation = function() {
         var asName = $scope.association.name;
         if (confirm("Stergeti associatia \"" + asName + "\"?")) {
             Notification.success(asName + " a fost stearsa.")
