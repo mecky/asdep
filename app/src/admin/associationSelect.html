@@ -1,0 +1,12 @@
+<h2>Selectati o asociatie:</h2>
+
+<div class="row">
+    <div class="col-sm-6 col-md-4" ng-repeat="association in associations">
+        <div class="thumbnail">
+            <a href="#/admin/{{ association.idAssociation }}/info">
+                <h4><strong>{{ association.name }}</strong></h4>
+                <p>{{ association.address }}</p>
+            </a>
+        </div>
+    </div>
+</div>

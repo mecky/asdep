@@ -6,9 +6,9 @@ var Associations = require('../common/dao/Associations');
 var ErrHandler = require('../common/errorHandling/ErrorHandler');
 
 /**
- * Return the list of associations assigned to the userId in the URL.
+ * Return the list of associations for a specific user.
  *
- * GET: /api/associations/:userId
+ * GET: /api/associations
  *
  * HTTP headers: none
  *
@@ -23,8 +23,8 @@ var ErrHandler = require('../common/errorHandling/ErrorHandler');
  * }]
  */
 exports.get = function(req, res) {
-    var id = req.params.userId;
-    err = new ErrHandler(res);
+    // TODO: get this from user rights
+    var id = 1;
 
     DbAuth.getUserAssociations({
         data: { idUser: id },
@@ -34,9 +34,40 @@ exports.get = function(req, res) {
                 done: function(rows) {
                     res.send(rows);
                 },
-                err: err
+                err: res.errHandler
             })
         },
-        err: err
+        err: res.errHandler
     })
+}
+
+/**
+ * Return an association with a specific id
+ *
+ * GET: /api/associations/:associationId
+ *
+ * HTTP headers: none
+ *
+ * RESPONSE:
+ * { "idassociation": 1,
+ *    "name": "Asociatia De Proprietari Nr. 1",
+ *    "cui": "1234567890123",
+ *    "county": "Hunedoara",
+ *    "city": "Deva",
+ *    "number_of_apartments": 123,
+ *    "address": "Bld. Decebal, Bl. M, Sc. C, Ap.92"
+ * }
+ */
+exports.getAssociation = function(req, res) {
+    // TODO: get this from user rights
+    var id = req.params.associationId;
+
+    Associations.getInfo4association({
+        data: { associationId: id },
+        done: function(rows) {
+            res.send(rows);
+        },
+        err: res.errHandler
+    })
+    
 }

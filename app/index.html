@@ -29,11 +29,14 @@
 
 
 <div data-ng-controller="RouteCtrl">
+
     <div navbar></div>
+
     <div class="container">
-        <div sidemenu ng-class="{'col-sm-2': context != 'none', 'hidden': context == 'none'}" class="well"></div>
-        <div ng-class="{'col-sm-10': context != 'none', 'col-sm-12': context == 'none'}" ng-view></div>
+        <div sidemenu ng-class="{'col-sm-2': context != null, 'hidden': context == null}" class="well"></div>
+        <div ng-class="{'col-sm-10': context != null, 'col-sm-12': context == null}" ng-view></div>
     </div>
+
     <div class="container">
         <div footer></div>
     </div>
@@ -52,6 +55,8 @@
 <script src="bower_components/bootstrap-sass/js/bootstrap-collapse.js"></script>
 <script src="bower_components/bootstrap-sass/js/bootstrap-modal.js"></script>
 <script src="bower_components/bootstrap-sass/js/bootstrap-dropdown.js"></script>
+<!--<script src="bower_components/bootstrap-sass/js/bootstrap-tooltip.js"></script>-->
+<!--<script src="bower_components/bootstrap-sass/js/bootstrap-popover.js"></script>-->
 <!-- endbuild -->
 
 <!-- build:js scripts/modules.js -->
@@ -78,6 +83,7 @@
 <script src="src/tenant/news/TenantNewsCtrl.js"></script>
 <script src="src/tenant/meters/TenantMetersCtrl.js"></script>
 
+<script src="src/admin/AssociationSelectCtrl.js"></script>
 <script src="src/admin/info/AdminInfoCtrl.js"></script>
 <script src="src/admin/config/AdminConfigCtrl.js"></script>
 <!-- endbuild -->

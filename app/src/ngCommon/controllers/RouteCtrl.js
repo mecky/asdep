@@ -27,8 +27,22 @@ asdep.controller("RouteCtrl", function($scope, $rootScope, $location, $cookies, 
         var ctx = $location.path().split("/");
         if (ctx[1]) {
             $rootScope.context = ctx[1];
+            // some contexts use an ID.
+            if (ctx[1] == "admin") {
+                // if the ID is defined in the url, make it global
+                if (ctx[2]) {
+                    $rootScope.contextId = ctx[2];
+                // else you are on a selection page and you dont need the context
+                } else {
+                    $rootScope.context = null;
+                }
+            // not all contexts use an ID
+            } else {
+                $rootScope.contextId = null;
+            }
+        // home page
         } else {
-            $rootScope.context = 'none';
+            $rootScope.context = null;
         }
     })
 });

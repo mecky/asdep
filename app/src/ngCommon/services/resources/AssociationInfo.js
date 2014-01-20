@@ -4,7 +4,5 @@
 'use strict';
 
 asdep.factory("AssociationInfo", function($resource) {
-    return $resource("/api/association/:id", {}, {
-        get: {method: "GET", isArray: true}
-    });
+    return $resource("/api/association/:id");
 })

@@ -104,7 +104,7 @@ defaultInit(){
     createGeneral;
     populateGeneral;
     createAssociation "1" "Asociatia De Proprietari Nr. 1" "1234567890123" "Hunedoara" "Deva" "123" "Bld. Decebal, Bl. M, Sc. C, Ap.92";
-    createAssociation "2" "Asociatia De Proprietari Nr. 1" "1234567890124" "Timis" "Timisoara" "50" "Bld. Parvan, Bl. R, Sc. C, Ap.12";
+    createAssociation "2" "Asociatia De Proprietari Nr. 2" "1234567890124" "Timis" "Timisoara" "50" "Bld. Parvan, Bl. R, Sc. C, Ap.12";
     runQuery "INSERT INTO \`general\`.\`userHasAssociation\` (\`userIdUser\`, \`associationIdAssociation\`, \`roles\`) VALUES ('1', '1', '2')";
     runQuery "INSERT INTO \`general\`.\`userHasAssociation\` (\`userIdUser\`, \`associationIdAssociation\`, \`roles\`) VALUES ('1', '2', '2')";
     runQuery "INSERT INTO \`general\`.\`userHasAssociation\` (\`userIdUser\`, \`associationIdAssociation\`, \`roles\`) VALUES ('2', '1', '2')";
