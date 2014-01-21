@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `general`.`user` (
   `firstName` VARCHAR(30) NOT NULL,
   `lastName` VARCHAR(30) NOT NULL,
   `password` VARCHAR(40) NOT NULL,
-  `createdDate` VARCHAR(45) NOT NULL,
+  `createdDateTime` DATETIME NOT NULL,
   `phoneNumber` VARCHAR(45) NULL,
   PRIMARY KEY (`idUser`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
@@ -121,3 +121,16 @@ DELIMITER ;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+USE `general`;
+
+DELIMITER $$
+USE `general`$$
+CREATE TRIGGER `user_BINS` BEFORE INSERT ON `user` FOR EACH ROW
+BEGIN
+declare created DATETIME;
+set NEW.createdDateTime = now();
+set NEW.password = md5(SHA2(new.password,512));
+END$$
+
+
+DELIMITER ;
