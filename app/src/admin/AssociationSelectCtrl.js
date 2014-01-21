@@ -3,8 +3,8 @@
  */
 'use strict';
 
-asdep.controller("AssociationSelectCtrl", function($scope, $rootScope, AssociationInfo) {
-    AssociationInfo.query({},
+asdep.controller("AssociationSelectCtrl", function($scope, $rootScope, Association) {
+    Association.query({},
         function onSuccess(data) {
             $scope.associations = data;
         }
