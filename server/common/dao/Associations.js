@@ -44,7 +44,7 @@ exports.getInfo = function(param){
 exports.getInfo4association = function(param){
     Dao.query({
         database : 'general',
-        query : ['SELECT * FROM general.association where idAssociation = ?', param.data.associationId ],
+        query : ['SELECT * FROM general.association where idAssociation = ?', param.data.idAssociation ],
         done : function(rows){
             if (rows[0]) {
                 param.done(rows[0]);
@@ -55,3 +55,15 @@ exports.getInfo4association = function(param){
         err : param.err
     });
 };
+
+exports.update = function(param) {
+    Dao.query({
+        database : 'general',
+        query : ['SELECT * FROM general.association where idAssociation = ?', param.data.idAssociation ],
+        done : function(rows){
+            // TODO compare db with post content and update modified fields.
+            param.done(param.data);
+        },
+        err : param.err
+    });
+}

@@ -3,7 +3,6 @@
  */
 var DbAuth = require('../common/dao/DbAuth');
 var Associations = require('../common/dao/Associations');
-var ErrHandler = require('../common/errorHandling/ErrorHandler');
 
 /**
  * Return the list of associations for a specific user.
@@ -60,14 +59,24 @@ exports.get = function(req, res) {
  */
 exports.getAssociation = function(req, res) {
     // TODO: get this from user rights
-    var id = req.params.associationId;
+    var id = req.params.idAssociation;
 
     Associations.getInfo4association({
-        data: { associationId: id },
+        data: { idAssociation: id },
         done: function(rows) {
             res.send(rows);
         },
         err: res.errHandler
     })
-    
+}
+
+exports.update = function(req, res) {
+    console.log(req.body);
+    Associations.update({
+        data: req.body,
+        done: function(association) {
+            res.send(association);
+        },
+        err: res.errHandler
+    })
 }

@@ -38,7 +38,8 @@ app.get(serverRoot + "/auth/:sessionId", Auth.getSessionInfo);
 // associations
 // TODO: add authentication and not return the list of all associations
 app.get(serverRoot + "/association", Association.get);
-app.get(serverRoot + "/association/:associationId", Association.getAssociation);
+app.post(serverRoot + "/association", Association.update);
+app.get(serverRoot + "/association/:idAssociation", Association.getAssociation);
 
 ////News
 //// get will take into account the user rights and will return the list

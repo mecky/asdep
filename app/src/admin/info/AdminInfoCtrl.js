@@ -3,19 +3,25 @@
  */
 'use strict';
 
-asdep.controller("AdminInfoCtrl", function($scope, $routeParams, AssociationInfo, Notification) {
-    var associationId = $routeParams.associationId;
+asdep.controller("AdminInfoCtrl", function($scope, $routeParams, Association, Notification) {
+    $scope.edit = false;
+    $scope.association = Association.get({idAssociation: $routeParams.idAssociation});
 
-    AssociationInfo.get({id: associationId},
-        function onSuccess(data) {
-            $scope.association = data;
-        }
-    );
+    $scope.update = function() {
+        $("#associationForm input").removeAttr("readonly");
+        $scope.edit = true;
+    }
 
-    $scope.deleteAssociation = function() {
-        var asName = $scope.association.name;
-        if (confirm("Stergeti associatia \"" + asName + "\"?")) {
-            Notification.success(asName + " a fost stearsa.")
-        }
+    $scope.save = function() {
+        $("#associationForm input").attr("readonly", "");
+        $scope.association.$save(
+            function onSuccess() {
+                Notification.success("Associatia a fost modificata cu succes!");
+            },
+            function onError() {
+                Notification.error("Modificarea nu a putut fi efectuata.")
+            }
+        );
+        $scope.edit = false;
     }
 });

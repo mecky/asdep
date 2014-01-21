@@ -13,8 +13,8 @@ asdep.config(function($routeProvider) {
     .when("/tenant/meters",                 {redirectTo: "/tenant/meters/insert"})
     .when("/tenant/meters/:tab",            {templateUrl:"/src/tenant/meters/meters.html",      controller: "TenantMetersCtrl"})
     .when("/admin",                         {templateUrl:"/src/admin/associationSelect.html",   controller: "AssociationSelectCtrl"})
-    .when("/admin/:associationId/info",     {templateUrl:"/src/admin/info/info.html",           controller: "AdminInfoCtrl"})
-    .when("/admin/:associationId/config",   {templateUrl:"/src/admin/config/config.html",       controller: "AdminConfigCtrl"})
+    .when("/admin/:idAssociation/info",     {templateUrl:"/src/admin/info/info.html",           controller: "AdminInfoCtrl"})
+    .when("/admin/:idAssociation/config",   {templateUrl:"/src/admin/config/config.html",       controller: "AdminConfigCtrl"})
 
     toastr.options.closeButton = true;
     toastr.options.timeOut = 1500;

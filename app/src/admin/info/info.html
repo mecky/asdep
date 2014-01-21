@@ -1,7 +1,7 @@
 <br/>
 <div class="row">
     <div class="thumbnail">
-        <form role="form">
+        <form role="form" id="associationForm">
             <div class="form-group">
                 <label for="name">Nume</label>
                 <input type="text" class="form-control" id="name" ng-model="association.name" readonly>
@@ -19,15 +19,15 @@
 
             <div class="form-group">
                 <label for="county">Judet</label>
-                <input type="text" class="form-control" id="county" ng-model="association.county" readonly>
+                <input type="text" class="form-control" id="county" ng-model="association.county" >
             </div>
 
             <div class="form-group">
                 <label for="apartments">Nr de Apartamente</label>
                 <input type="text" class="form-control" id="apartments" ng-model="association.numberOfApartments" readonly>
             </div>
-            <button class="btn btn-primary">Update</button>
-            <button class="btn btn-danger" ng-click="deleteAssociation($index)">Delete</button>
+            <button class="btn btn-primary" ng-click="update()" ng-hide="edit">Modifica</button>
+            <button class="btn btn-success" ng-click="save()" ng-show="edit">Salveaza</button>
         </form>
     </div>
 </div>

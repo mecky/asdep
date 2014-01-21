@@ -7,6 +7,7 @@
  * All the content from index.html is wrapped in a div controlled by RouteCtrl.
  * When a route changes, the "context" variable is assigned the first string between "/" (ex: admin, tenant, etc)
  * All components will access this property from $rootScope. It can be used to determine what to display (ex: sidebar)
+ * All global variables will be modified only here!
  */
 asdep.controller("RouteCtrl", function($scope, $rootScope, $location, $cookies, $cookieStore, Auth) {
     var sessionId = $cookies.sessionId;
