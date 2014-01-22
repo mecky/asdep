@@ -74,8 +74,8 @@ exports.update = function(req, res) {
     console.log(req.body);
     Associations.update({
         data: req.body,
-        done: function(association) {
-            res.send(association);
+        done: function() {
+            res.send(200);
         },
         err: res.errHandler
     })

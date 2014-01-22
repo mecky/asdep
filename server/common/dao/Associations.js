@@ -57,12 +57,15 @@ exports.getInfo4association = function(param){
 };
 
 exports.update = function(param) {
+    var updatedFields = param.data.updatedFields;
+    console.log(updatedFields);
+
     Dao.query({
         database : 'general',
-        query : ['SELECT * FROM general.association where idAssociation = ?', param.data.key ],
-        done : function(rows){
-            // TODO compare db with post content and update modified fields.
-            param.done(param.data);
+        query : ['UPDATE association SET ? WHERE idAssociation = ' + param.data.key, updatedFields ],
+        done : function() {
+            // TODO is this enough? should whe check for something here?
+            param.done();
         },
         err : param.err
     });
