@@ -3,18 +3,28 @@
  */
 'use strict';
 
-asdep.controller("AdminInfoCtrl", function($scope, $routeParams, Association, Notification) {
+asdep.controller("AdminInfoCtrl", function($scope, $routeParams, Association, Notification, Model) {
+    var idAssociation = $routeParams.idAssociation;
     $scope.edit = false;
-    $scope.association = Association.get({idAssociation: $routeParams.idAssociation});
+
+    Association.get({idAssociation: idAssociation},
+        function onSuccess(data) {$scope.association = data;},
+        function onError() { Notification.error("Asociatia cu ID-ul " + idAssociation + " nu a putut fi preluata de pe server!");}
+    );
+
+    var associationBackup = null;
 
     $scope.update = function() {
+        associationBackup = Model.clone($scope.association);
         $("#associationForm input").removeAttr("readonly");
         $scope.edit = true;
     }
 
     $scope.save = function() {
+        var diffObject = Model.diff(associationBackup, $scope.association, "idAssociation");
+
         $("#associationForm input").attr("readonly", "");
-        $scope.association.$save(
+        Association.save(diffObject,
             function onSuccess() {
                 Notification.success("Associatia a fost modificata cu succes!");
             },
