@@ -21,7 +21,7 @@ asdep.controller("AdminInfoCtrl", function($scope, $routeParams, Association, No
     }
 
     $scope.save = function() {
-        var diffObject = Model.diff(associationBackup, $scope.association, "idAssociation");
+        var diffObject = Model.diff(associationBackup, $scope.association, idAssociation);
 
         $("#associationForm input").attr("readonly", "");
         Association.save(diffObject,
