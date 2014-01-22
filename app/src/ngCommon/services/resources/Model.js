@@ -9,23 +9,24 @@
 asdep.factory("Model", function() {
     return {
         /**
-         * Return the difference between two entities. (the fields of model2)
          * @param model1    - base
          * @param model2    - new instance
          * @param id        - the new model must preserve an ID
+         * @return          - the difference between two entities (the fields of model2), or null in case objects are identical
          */
         diff: function(model1, model2, id) {
             var diff = {
                 key: id,
                 updatedFields: {}
             };
-
+            var modified = false;
             for (var key in model1) {
                 if (model1[key] != model2[key]) {
                     diff.updatedFields[key] = model2[key];
+                    modified = true;
                 }
             }
-            return diff;
+            return modified ? diff : null;
         },
         /**
          * Return a new instance of the object, identical to the argument given.

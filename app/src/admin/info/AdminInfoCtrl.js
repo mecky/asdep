@@ -21,17 +21,19 @@ asdep.controller("AdminInfoCtrl", function($scope, $routeParams, Association, No
     }
 
     $scope.save = function() {
-        var diffObject = Model.diff(associationBackup, $scope.association, idAssociation);
-
         $("#associationForm input").attr("readonly", "");
-        Association.save(diffObject,
-            function onSuccess() {
-                Notification.success("Associatia a fost modificata cu succes!");
-            },
-            function onError() {
-                Notification.error("Modificarea nu a putut fi efectuata.")
-            }
-        );
-        $scope.edit = false;
+
+        var diffObject = Model.diff(associationBackup, $scope.association, idAssociation);
+        if (diffObject) {
+            Association.save(diffObject,
+                function onSuccess() {
+                    Notification.success("Associatia a fost modificata cu succes!");
+                },
+                function onError() {
+                    Notification.error("Modificarea nu a putut fi efectuata.")
+                }
+            );
+            $scope.edit = false;
+        }
     }
 });
