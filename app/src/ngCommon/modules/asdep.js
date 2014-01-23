@@ -15,6 +15,7 @@ asdep.config(function($routeProvider) {
     .when("/admin",                         {templateUrl:"/src/admin/associationSelect.html",   controller: "AssociationSelectCtrl"})
     .when("/admin/:idAssociation/info",     {templateUrl:"/src/admin/info/info.html",           controller: "AdminInfoCtrl"})
     .when("/admin/:idAssociation/config",   {templateUrl:"/src/admin/config/config.html",       controller: "AdminConfigCtrl"})
+    .when("/admin/:idAssociation/meters",   {templateUrl:"/src/admin/meters/metersList.html",   controller: "MetersListCtrl"})
 
     toastr.options.closeButton = true;
     toastr.options.timeOut = 1500;
